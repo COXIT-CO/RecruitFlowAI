@@ -1,0 +1,179 @@
+{
+    "source_key": "ea40966a47594a91397bdfee61ca25b33458dfab",
+    "id": "16396806",
+    "key": "a71758544c31af71e7504c9659de27bd77b1fa98",
+    "consent_algorithmic": {
+        "owner": {
+            "parsing": "0",
+            "revealing": "0",
+            "embedding": "0",
+            "searching": "0",
+            "scoring": "0",
+            "reasoning": "0"
+        },
+        "controller": {
+            "parsing": "0",
+            "revealing": "0",
+            "embedding": "0",
+            "searching": "0",
+            "scoring": "0",
+            "reasoning": "0"
+        }
+    },
+    "source": {
+        "key": "ea40966a47594a91397bdfee61ca25b33458dfab"
+    },
+    "updated_at": "2023-08-07T11:48:08+0000",
+    "created_at": "2023-08-07T11:48:08+0000",
+    "info": {
+        "full_name": "SACHA DUBOIS",
+        "first_name": "SACHA",
+        "last_name": "DUBOIS",
+        "email": "hello@reallygreatsite.com",
+        "phone": "1234567890",
+        "location": {
+            "text": "123 Anywhere St.,, Any City, State, Country 12345",
+            "lat": "42.809945",
+            "lng": "-73.95155",
+            "fields": {
+                "text": "12345, Schenectady, NY, USA",
+                "postcode": "12345",
+                "city": "Schenectady",
+                "state_district": "Schenectady County",
+                "state": "New York",
+                "country": "USA"
+            }
+        },
+        "picture": "https://riminder-documents-eu-2019-12.s3.amazonaws.com/teams/56d49c914639c4956bec96afdf9c36d1be40feae/sources/ea40966a47594a91397bdfee61ca25b33458dfab/profiles/a71758544c31af71e7504c9659de27bd77b1fa98/parsing/picture.png?AWSAccessKeyId=ASIAQD4T3HKBQPEZ2WOX&Signature=P%2BV6atq7bRs6I0g01rz%2BWahokfA%3D&x-amz-security-token=IQoJb3JpZ2luX2VjEMv%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCWV1LXdlc3QtMSJGMEQCIGOeOxmw6t5%2F3QK5BK1sAop5x9n%2FQiN7%2Bs1lZbiUJ3mQAiBoXhxJdcOrWeWunAHIfbE99rZyzLczaKISjMJYHYdZ0yqzBQh0EAAaDDAwODM2MzEyOTQ3NSIMa2eq%2FwqufO9dL%2BMJKpAF4WkHqQq4zS4kZBSn%2FY%2BUkBWWj4GEoN5vJk5HHFqGly85UDFP%2BXZkGQfWTJ4aLY1QycnoiZ6gPD%2BMYJlvLOVDIwjn1hFW2mgNzJ4v7peqdAPFHkvm4%2BWfPV2YkYGpvakzkHk%2BDuZVMry2VjEIsM7YDUYm%2BEu8szgUQlC92GapjzhZ4OjWVMKZtmv6ayBroK2OE4f3wvWK4EbP6W9tcBdLELNHLi5FfPwoBjgDiCjcuE1fpfTh%2BhVFwuhPw%2FDH6q5U95%2BENAABKbC58SHb0uYjU1hchMJtsl6%2BunI4EKOAP0XrH2%2BfOX4ztNPrJ0NB62DMVzV8Kk3duqNSOUURqfZmXYH0PDK1q46uQ8mmuFzu8oGpBLpqLuOcTFxs3eEQkAUXP38BGbNHb67iO8phaasG%2B0ltLmyGnTARhSthtKon%2FJURbg0Nz9lDxUzMX0HOZ8T3I7XZD8K0pMJS%2FeaLJyM82LFOAxQGs%2FCZKnRcp2XyKi4Xoj4g2eRtfuKle2wRQLgLNzx43pa2u0dFdEg4o%2F6Y37TCYb4I%2F4CAVo1uFjNfABDzP9ov5XRQrJDck6zqol0J31Y%2Ft%2FVa6BLbGFjmG3LYOrs%2FCuord%2BjN%2Fg69o%2FWVxRpJjKR0I1cVfOuQ6emlSQFI6KkZiIpnsPG1srOgS5ofxgUoOQsezk6QkwFpJehM9tvB%2FfBe%2BTbkqA1E%2B3wvteHuoaP87feOawicXNxoHGJQRWfkHXnmG%2FS6O%2FfrQxIPx%2FxsqKYZinoWkRm1i45A6dyXNuweUPs45u2sbA0ev7TGERjhsn7XCk%2Bb3T%2BjjU5M2I%2BoZMdu%2F4FqklRUWRn9U5Ue8sOTVztaRbm7F6jQK8OrhN4XsY1i%2FNBwDrLuawmhrTgwwJXDpgY6sgFYcSc%2F8dVRDEBxXK4TqhB0eCCDeZ9Gr9zAKl6MNnwx%2F5XnEdQp16WbUJN1Gdbkucs0xRmrVAJBo%2BCmzEwTW0dKgBYE5zekB3ya%2F2FLLr2gYKp6imEfTYb%2B%2B8vUVgKIfMbML0N9oTevyBZ%2BuVg5XoDFbCUbGAtt8sOLMSCet7JU9Wmp0R5uoMMYYmTaUV2o6G0eyMgtR%2FNitcWzbAg9YH51nANAwrk0ZVsfgDICRDtnW5s2&Expires=1694087288",
+        "gender": "male",
+        "summary": "Had experience in developing a wide range of applications using Python. During this time Have worked with Flask and Django for web development, Redis for message brokering and backend tasks, Docker for container instances and creating/updating images, and Bash for operating system-level tasks. Additionally developed RESTful and gRPC APIs (client and server side) using Flask and Django, and implemented asynchronous programming techniques using Celery, Asyncio, and multithreading."
+    },
+    "text_language": "en",
+    "text": "S O F T W A R E D E V E L O P E R\nSACHA DUBOIS\n\nPERSONAL PROFILE\n\nI am a software developer and\nsystems architector with experience\nat designing coding, and testing\ncomplex systems I'm highly proficient\nin C#, Java, and Ruby.\n\nAREAS OF EXPERTISE\n\nSystem Analysis\nUser Research\nObject-Oriented Design\nOptimization\nMachine Learning\nAgile Methodology\nDatabase Modelling\nSoftware Testing and Debugging\n\nCONTACT INFO\n\nOffice Address: 123 Anywhere St.,\nAny City, State, Country 12345\nEmail: hello@reallygreatsite.com\nPortfolio: www.reallygreatsite.com\nLinkedIn: @reallygreatsite\n\nSenior Software Engineer\n\nMEERMASTER TECH | JAN 2019 - PRESENT\n\n- Analyze user wishes and design softwares solution\n- Code high-performance programs using different frameworks\n- Work with other teams for debugging\n\nWORK EXPERIENCE\n\nSoftware Developer\n\nEILECOM SOLUTIONS | SEPT 2018 - DEC 2019\n\n- Built back-end services that crunch data to deliver business insignts\n- Created automated release process tools\n- Continuous improve system architecture\n\nUniversity of Estrecliff\n\nMASTERS OF SCIENCE | MAY 2016 - MAY 2020\n\nMasters in Computer Science\nGPA: 3.35\nWrote a Thesis on: AI-Generated Diagnoses of Plant Disease on\nMobile Platforms\nWon the Most Impactful Thesis Award\n\nACADEMIC HISTORY\n\nLaemarble College\n\nBACHELOR OF SCIENCE | JUN 2009 - JUN 2012\n\nBS Computer Science\nGPA: 3.75\n- Minor in Literature\n- Specialization in Enterprise Systems\n- Vice President and Lead VIolinist, Laemarble Classical Orchestra\n\nWORK REFERENCES\n\nBryant Stevenson\nEmail: hello@reallygreatsite.com\nPhone: (123) 456-7890\nCessandra Skoski\nEmail: hello@reallygreatsite.com\nPhone: (123) 456-7890",
+    "experiences_duration": "4.9342465753425",
+    "educations_duration": "7.0054794520548",
+    "experiences": [
+        {
+            "key": "792dbcaa334d17950b0936605d5e56e2055136f7",
+            "title": "Senior Software Engineer",
+            "description": "Senior Software Engineer\nMEERMASTER TECH | -\n- Analyze user wishes and design softwares solution\n- Code high-performance programs using different frameworks\n- Work with other teams for debugging",
+            "date_start": "2019-01-01T00:00:00",
+            "date_end": "2023-08-07T00:00:00",
+            "tasks": [
+                {
+                    "name": "analyze user wishes and design softwares solution"
+                },
+                {
+                    "name": "code high-performance programs using different frameworks"
+                },
+                {
+                    "name": "work with other teams for debugging"
+                }
+            ],
+            "company": "MEERMASTER TECH"
+        },
+        {
+            "key": "46b62bcde2ac45fd7197e012df1802971abe53b2",
+            "title": "Software Developer",
+            "description": "Software Developer\nEILECOM SOLUTIONS | -\n- Built back-end services that crunch data to deliver business insignts\n- Created automated release process tools\n- Continuous improve system architecture",
+            "date_start": "2018-09-01T00:00:00",
+            "date_end": "2019-12-01T00:00:00",
+            "tasks": [
+                {
+                    "name": "built back-end services that crunch data to deliver business insignts"
+                },
+                {
+                    "name": "created automated release process tools"
+                },
+                {
+                    "name": "continuous improve system architecture"
+                }
+            ],
+            "company": "EILECOM SOLUTIONS"
+        }
+    ],
+    "educations": [
+        {
+            "key": "cfd29150dd4bdc4d99b0552bf06219b05aa36776",
+            "title": "MASTERS OF SCIENCE",
+            "description": "University of Estrecliff\nMASTERS OF SCIENCE | -\nMasters in Computer Science\nGPA: 3.35\nWrote a Thesis on: AI-Generated Diagnoses of Plant Disease on\nMobile Platforms\nWon the Most Impactful Thesis Award",
+            "date_start": "2016-05-01T00:00:00",
+            "date_end": "2020-05-01T00:00:00",
+            "school": "University of Estrecliff"
+        },
+        {
+            "key": "a66a9b84a84696e12996ba22d76060c37549100f",
+            "title": "BACHELOR OF SCIENCE",
+            "description": "Laemarble College\nBACHELOR OF SCIENCE | -\nBS Computer Science\nGPA: 3.75\n- Minor in Literature\n- Specialization in Enterprise Systems\n- Vice President and Lead VIolinist, Laemarble Classical Orchestra",
+            "date_start": "2009-06-01T00:00:00",
+            "date_end": "2012-06-01T00:00:00",
+            "school": "Laemarble College"
+        }
+    ],
+    "attachments": [
+        {
+            "type": "original",
+            "alt": "39364cd49a599f5426dae92f6e30533d3671bd15",
+            "file_size": "167190",
+            "file_name": "original",
+            "original_file_name": "original",
+            "extension": ".pdf",
+            "public_url": "https://riminder-documents-eu-2019-12.s3.amazonaws.com/teams/56d49c914639c4956bec96afdf9c36d1be40feae/sources/ea40966a47594a91397bdfee61ca25b33458dfab/profiles/a71758544c31af71e7504c9659de27bd77b1fa98/parsing/original.pdf?AWSAccessKeyId=ASIAQD4T3HKBQPEZ2WOX&Signature=7tlPYLbJgQmAD1uabWDdWV%2Bl7jw%3D&x-amz-security-token=IQoJb3JpZ2luX2VjEMv%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCWV1LXdlc3QtMSJGMEQCIGOeOxmw6t5%2F3QK5BK1sAop5x9n%2FQiN7%2Bs1lZbiUJ3mQAiBoXhxJdcOrWeWunAHIfbE99rZyzLczaKISjMJYHYdZ0yqzBQh0EAAaDDAwODM2MzEyOTQ3NSIMa2eq%2FwqufO9dL%2BMJKpAF4WkHqQq4zS4kZBSn%2FY%2BUkBWWj4GEoN5vJk5HHFqGly85UDFP%2BXZkGQfWTJ4aLY1QycnoiZ6gPD%2BMYJlvLOVDIwjn1hFW2mgNzJ4v7peqdAPFHkvm4%2BWfPV2YkYGpvakzkHk%2BDuZVMry2VjEIsM7YDUYm%2BEu8szgUQlC92GapjzhZ4OjWVMKZtmv6ayBroK2OE4f3wvWK4EbP6W9tcBdLELNHLi5FfPwoBjgDiCjcuE1fpfTh%2BhVFwuhPw%2FDH6q5U95%2BENAABKbC58SHb0uYjU1hchMJtsl6%2BunI4EKOAP0XrH2%2BfOX4ztNPrJ0NB62DMVzV8Kk3duqNSOUURqfZmXYH0PDK1q46uQ8mmuFzu8oGpBLpqLuOcTFxs3eEQkAUXP38BGbNHb67iO8phaasG%2B0ltLmyGnTARhSthtKon%2FJURbg0Nz9lDxUzMX0HOZ8T3I7XZD8K0pMJS%2FeaLJyM82LFOAxQGs%2FCZKnRcp2XyKi4Xoj4g2eRtfuKle2wRQLgLNzx43pa2u0dFdEg4o%2F6Y37TCYb4I%2F4CAVo1uFjNfABDzP9ov5XRQrJDck6zqol0J31Y%2Ft%2FVa6BLbGFjmG3LYOrs%2FCuord%2BjN%2Fg69o%2FWVxRpJjKR0I1cVfOuQ6emlSQFI6KkZiIpnsPG1srOgS5ofxgUoOQsezk6QkwFpJehM9tvB%2FfBe%2BTbkqA1E%2B3wvteHuoaP87feOawicXNxoHGJQRWfkHXnmG%2FS6O%2FfrQxIPx%2FxsqKYZinoWkRm1i45A6dyXNuweUPs45u2sbA0ev7TGERjhsn7XCk%2Bb3T%2BjjU5M2I%2BoZMdu%2F4FqklRUWRn9U5Ue8sOTVztaRbm7F6jQK8OrhN4XsY1i%2FNBwDrLuawmhrTgwwJXDpgY6sgFYcSc%2F8dVRDEBxXK4TqhB0eCCDeZ9Gr9zAKl6MNnwx%2F5XnEdQp16WbUJN1Gdbkucs0xRmrVAJBo%2BCmzEwTW0dKgBYE5zekB3ya%2F2FLLr2gYKp6imEfTYb%2B%2B8vUVgKIfMbML0N9oTevyBZ%2BuVg5XoDFbCUbGAtt8sOLMSCet7JU9Wmp0R5uoMMYYmTaUV2o6G0eyMgtR%2FNitcWzbAg9YH51nANAwrk0ZVsfgDICRDtnW5s2&Expires=1694087288",
+            "updated_at": "2023-08-07T11:48:08+0000",
+            "created_at": "2023-08-07T11:48:08+0000"
+        },
+        {
+            "type": "resume",
+            "alt": "9bbb3b56619d2e04c6b764cd2121022ef516a02a",
+            "file_size": "167368",
+            "file_name": "resume",
+            "original_file_name": "resume",
+            "extension": ".pdf",
+            "public_url": "https://riminder-documents-eu-2019-12.s3.amazonaws.com/teams/56d49c914639c4956bec96afdf9c36d1be40feae/sources/ea40966a47594a91397bdfee61ca25b33458dfab/profiles/a71758544c31af71e7504c9659de27bd77b1fa98/parsing/resume.pdf?AWSAccessKeyId=ASIAQD4T3HKBQPEZ2WOX&Signature=iVDjQOBbKZaurx6Qs56RQz0AVA0%3D&x-amz-security-token=IQoJb3JpZ2luX2VjEMv%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCWV1LXdlc3QtMSJGMEQCIGOeOxmw6t5%2F3QK5BK1sAop5x9n%2FQiN7%2Bs1lZbiUJ3mQAiBoXhxJdcOrWeWunAHIfbE99rZyzLczaKISjMJYHYdZ0yqzBQh0EAAaDDAwODM2MzEyOTQ3NSIMa2eq%2FwqufO9dL%2BMJKpAF4WkHqQq4zS4kZBSn%2FY%2BUkBWWj4GEoN5vJk5HHFqGly85UDFP%2BXZkGQfWTJ4aLY1QycnoiZ6gPD%2BMYJlvLOVDIwjn1hFW2mgNzJ4v7peqdAPFHkvm4%2BWfPV2YkYGpvakzkHk%2BDuZVMry2VjEIsM7YDUYm%2BEu8szgUQlC92GapjzhZ4OjWVMKZtmv6ayBroK2OE4f3wvWK4EbP6W9tcBdLELNHLi5FfPwoBjgDiCjcuE1fpfTh%2BhVFwuhPw%2FDH6q5U95%2BENAABKbC58SHb0uYjU1hchMJtsl6%2BunI4EKOAP0XrH2%2BfOX4ztNPrJ0NB62DMVzV8Kk3duqNSOUURqfZmXYH0PDK1q46uQ8mmuFzu8oGpBLpqLuOcTFxs3eEQkAUXP38BGbNHb67iO8phaasG%2B0ltLmyGnTARhSthtKon%2FJURbg0Nz9lDxUzMX0HOZ8T3I7XZD8K0pMJS%2FeaLJyM82LFOAxQGs%2FCZKnRcp2XyKi4Xoj4g2eRtfuKle2wRQLgLNzx43pa2u0dFdEg4o%2F6Y37TCYb4I%2F4CAVo1uFjNfABDzP9ov5XRQrJDck6zqol0J31Y%2Ft%2FVa6BLbGFjmG3LYOrs%2FCuord%2BjN%2Fg69o%2FWVxRpJjKR0I1cVfOuQ6emlSQFI6KkZiIpnsPG1srOgS5ofxgUoOQsezk6QkwFpJehM9tvB%2FfBe%2BTbkqA1E%2B3wvteHuoaP87feOawicXNxoHGJQRWfkHXnmG%2FS6O%2FfrQxIPx%2FxsqKYZinoWkRm1i45A6dyXNuweUPs45u2sbA0ev7TGERjhsn7XCk%2Bb3T%2BjjU5M2I%2BoZMdu%2F4FqklRUWRn9U5Ue8sOTVztaRbm7F6jQK8OrhN4XsY1i%2FNBwDrLuawmhrTgwwJXDpgY6sgFYcSc%2F8dVRDEBxXK4TqhB0eCCDeZ9Gr9zAKl6MNnwx%2F5XnEdQp16WbUJN1Gdbkucs0xRmrVAJBo%2BCmzEwTW0dKgBYE5zekB3ya%2F2FLLr2gYKp6imEfTYb%2B%2B8vUVgKIfMbML0N9oTevyBZ%2BuVg5XoDFbCUbGAtt8sOLMSCet7JU9Wmp0R5uoMMYYmTaUV2o6G0eyMgtR%2FNitcWzbAg9YH51nANAwrk0ZVsfgDICRDtnW5s2&Expires=1694087288",
+            "updated_at": "2023-08-07T11:48:08+0000",
+            "created_at": "2023-08-07T11:48:08+0000"
+        }
+    ],
+    "skills": [
+        {
+            "name": "c#",
+            "type": "hard"
+        },
+        {
+            "name": "java",
+            "type": "hard"
+        },
+        {
+            "name": "ruby",
+            "type": "hard"
+        },
+        {
+            "name": "object-oriented design",
+            "type": "hard"
+        },
+        {
+            "name": "machine learning",
+            "type": "hard"
+        },
+        {
+            "name": "agile methodology",
+            "type": "hard"
+        }
+    ],
+    "tasks": [
+        {
+            "name": "system analysis"
+        },
+        {
+            "name": "database modelling"
+        },
+        {
+            "name": "software testing and debugging"
+        }
+    ],
+    "tags": [
+        {
+            "name": "referrer"
+        }
+    ]
+}
