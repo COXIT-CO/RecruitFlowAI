@@ -8,6 +8,7 @@ You have to divide the text into the sentences and then:
 - refrase sentences using correct grammar
 - remove the punctuation mistakes, like missing or redandunt comma or period
 - summurize the text if the information is duplicated
+- remove job title or company name if they are precent in the text
 Correct senteces should be represented as python list of strings. If no changes applied to the sentence - put "None" instead.
 Input text: {input}
 Correct sentences: {correct_sentences}

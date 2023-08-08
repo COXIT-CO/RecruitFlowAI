@@ -4,7 +4,7 @@ from typing import List, Optional
 
 class Section(BaseModel):
     input_text: str
-    corrected_sencences: List[Optional[str]]
+    corrected_sentences: list
 
 
 class Experience(BaseModel):
@@ -20,7 +20,7 @@ class Education(BaseModel):
     school: str
     date_start: str
     date_end: str
-    description: Section
+    summary: Section
 
     
 class Resume(BaseModel):
@@ -31,18 +31,18 @@ class Resume(BaseModel):
     skills: List[str]
 
 
-def build_resume_model(resume:dict, corrections:list) -> Resume:
+def build_resume_model(resume:dict, corrections:dict) -> Resume:
     data = {
         'full_name': resume['info']['full_name'],
         'summary': {
-            'input_text': resume['summary'],
-            'corrected_sentences': corrections[0]
+            'input_text': resume['info']['summary'],
+            'corrected_sentences': corrections['summary']
         },
         'experiences': [
                 Experience(**exp, 
                            summary=Section(**{
                                'input_text': exp['description'], 
-                               'corrected_sentences': corrections[i+1]}
+                               'corrected_sentences': corrections['experiences'][i]}
                                 )
                            ) for i, exp in enumerate(resume['experiences'])
             ],
@@ -50,7 +50,7 @@ def build_resume_model(resume:dict, corrections:list) -> Resume:
                 Education(**ed, 
                            summary=Section(**{
                                'input_text': ed['description'], 
-                               'corrected_sentences': corrections[i+len(resume['experiences'])+1]}
+                               'corrected_sentences': corrections['educations'][i]} # todo: include results
                                 )
                            ) for i, ed in enumerate(resume['educations'])
             ],
