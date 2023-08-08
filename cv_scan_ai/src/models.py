@@ -1,62 +1,48 @@
 from pydantic import BaseModel
-from typing import List, Optional
-
+from typing import List, Union
+from tools.text_reviewer import get_clean_text
 
 class Section(BaseModel):
     input_text: str
     corrected_sentences: list
 
+class CorrectSummaryModel(BaseModel):
+    summary: Union[Section, str] = None
 
-class Experience(BaseModel):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        input_text = None
+        if kwargs.get('summary', None):
+            input_text = kwargs['summary']
+        elif kwargs.get('description', None):
+            input_text = kwargs['description']
+        if input_text:
+            self.summary = Section(**{
+                'input_text': input_text,
+                'corrected_sentences': get_clean_text(input_text)
+            })
+
+class Experience(CorrectSummaryModel):
     title: str
-    company: str
-    summary: Section
+    company: str   
     date_start: str
     date_end: str
 
 
-class Education(BaseModel):
+class Education(CorrectSummaryModel):
     title: str
     school: str
     date_start: str
     date_end: str
-    summary: Section
 
-    
-class Resume(BaseModel):
+
+class Skill(BaseModel):
+    name: str
+    type: str
+
+
+class Resume(CorrectSummaryModel):
     full_name: str
-    summary: Optional[Section]
     experiences: List[Experience]
     educations: List[Education]
-    skills: List[str]
-
-
-def build_resume_model(resume:dict, corrections:dict) -> Resume:
-    data = {
-        'full_name': resume['info']['full_name'],
-        'summary': {
-            'input_text': resume['info']['summary'],
-            'corrected_sentences': corrections['summary']
-        },
-        'experiences': [
-                Experience(**exp, 
-                           summary=Section(**{
-                               'input_text': exp['description'], 
-                               'corrected_sentences': corrections['experiences'][i]}
-                                )
-                           ) for i, exp in enumerate(resume['experiences'])
-            ],
-        'educations': [
-                Education(**ed, 
-                           summary=Section(**{
-                               'input_text': ed['description'], 
-                               'corrected_sentences': corrections['educations'][i]} # todo: include results
-                                )
-                           ) for i, ed in enumerate(resume['educations'])
-            ],
-        'skills': [skill['name'] for skill in resume['skills'] if skill['type'] == 'hard']
-    }
-    return Resume(**data)
-    
-    
-
+    skills: List[Skill]
