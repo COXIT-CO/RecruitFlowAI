@@ -1,5 +1,6 @@
-import json 
-from src.models import Resume
+import json
+
+from context import Resume
 
 
 if __name__ == '__main__':

@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 from typing import List, Union
-from tools.text_reviewer import get_clean_text
+from .tools.text_reviewer import get_clean_text
 
 class Section(BaseModel):
     input_text: str
