@@ -6,12 +6,11 @@ from urllib.parse import parse_qsl
 from pydantic import BaseModel, ValidationError
 from fastapi import FastAPI, Depends, Response, Header, HTTPException, Request
 
-from utils import get_answear
-from configs import Settings
+from slack_bot.utils import get_answear
+from slack_bot.configs import Settings, settings
 
 app = FastAPI()
 client = None
-settings = Settings()
 client = slack_sdk.WebClient(token=settings.access_token.get_secret_value())
 
 
@@ -94,6 +93,7 @@ def process_command(command: Command = Depends()):
     text = get_answear(command.command[1:])
     client.chat_postMessage(channel=command.channel_id,
                             text="",
+                            unfurl_links=False,
                             blocks=[
                                 {
                                     "type": "section",
@@ -102,6 +102,6 @@ def process_command(command: Command = Depends()):
                                         "text": text
                                     }
                                 }
-                            ]
+                            ],
                         )
     return Response(status_code=200)
