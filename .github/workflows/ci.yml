@@ -59,7 +59,7 @@ jobs:
           python -m pip install --user virtualenv
           python3.9 -m venv .venv_cv_scan_ai
   
-      - #name: Install project and module dependencies
+      #-name: Install project and module dependencies
         #run: |
           #source .venv_cv_scan_ai/bin/activate
           #pip install -r cv_scan_ai/requirements.txt
