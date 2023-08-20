@@ -1,1 +1,1 @@
-from api import router as slash_commands_router
+from .api import router as slash_commands_router

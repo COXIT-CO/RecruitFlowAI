@@ -8,7 +8,7 @@ RUN pip install --no-cache-dir --upgrade -r /cv_scan_ai/requirements.txt
 
 COPY ./slack_bot /cv_scan_ai/slack_bot
 
-COPY ./data /cv_scan_ai/data
+COPY ./slack_bot/data /cv_scan_ai/data
 
 COPY ./.env /cv_scan_ai/.env
 
