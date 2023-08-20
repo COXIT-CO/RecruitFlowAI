@@ -1,3 +1,4 @@
+import logging
 import slack_sdk
 from hmac import HMAC
 from time import time
@@ -9,6 +10,7 @@ from fastapi import APIRouter, Depends, Response, Header, HTTPException, Request
 from slack_bot.slash_commands.answears import get_answear
 from slack_bot.settings import Settings, env_settings
 
+logger = logging.getLogger(__name__)
 router = APIRouter()
 client = slack_sdk.WebClient(token=env_settings.access_token.get_secret_value())
 
@@ -90,17 +92,21 @@ class Command(BaseModel):
 @router.post('/process_command')
 def process_command(command: Command = Depends()):
     text = get_answear(command.command[1:])
-    client.chat_postMessage(channel=command.channel_id,
-                            text="",
-                            unfurl_links=False,
-                            blocks=[
-                                {
-                                    "type": "section",
-                                    "text": {
-                                        "type": "mrkdwn",
-                                        "text": text
-                                    }
+    try:
+        client.chat_postMessage(channel=command.channel_id,
+                        text="",
+                        unfurl_links=False,
+                        blocks=[
+                            {
+                                "type": "section",
+                                "text": {
+                                    "type": "mrkdwn",
+                                    "text": text
                                 }
-                            ],
-                        )
+                            }
+                        ],
+                    )
+    except Exception as e:
+        logger.error(f"Error in processing command '{command.command}' : ", exc_info=e)
+        return Response(status_code=500)
     return Response(status_code=200)
