@@ -3,8 +3,7 @@ AI Driven CV Validator
 
 
 ## Deployment
-1. Create in base folder .env file and specify:
-   - `OPENAI_API_KEY`
+1. Create in base folder `.env` file and specify:
    - `SLACK_ACCESS_TOKEN`
    - `SLACK_SIGNING_SECRET`
    - `SLACK_BOT_DATA_PATH`
