@@ -12,4 +12,4 @@ class Settings(BaseSettings):
         env_prefix = "slack_"
         case_sensitive = False
 
-settings = Settings()
+env_settings = Settings()

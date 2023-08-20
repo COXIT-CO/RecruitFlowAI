@@ -1,6 +1,6 @@
 import json
 from enum import Enum
-from slack_bot.configs import settings
+from slack_bot.settings import env_settings
 
 
 class Commands(Enum):
@@ -12,7 +12,7 @@ class Commands(Enum):
 
 
 def get_answear(command: str):
-    with open(settings.bot_data_path, 'r') as f:
+    with open(env_settings.bot_data_path, 'r') as f:
         data = json.load(f)
         if command == Commands.gen_job_desc.value:
             return f"""<{data['generate_job_description']["url"]}|*Create Job Description*>
