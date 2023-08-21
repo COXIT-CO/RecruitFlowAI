@@ -1,3 +1,4 @@
+"""Environment settings"""
 from pydantic import SecretStr
 from pydantic_settings import BaseSettings
 
@@ -8,7 +9,7 @@ class Settings(BaseSettings):
     bot_data_path: str
 
     class Config:
-        env_file = '.env'
+        env_file = ".env"
         env_prefix = "slack_"
         case_sensitive = False
 
