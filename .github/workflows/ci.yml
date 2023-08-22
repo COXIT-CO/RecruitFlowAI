@@ -32,10 +32,10 @@ jobs:
           python -m pip install --user virtualenv
           python -m venv .venv
 
-      #- name: Install project dependencies
-        #run: |
-          #source .venv/bin/activate
-          #pip install -r requirements.txt
+      - name: Install project dependencies
+        run: |
+          source .venv/bin/activate
+          pip install -r requirements.txt
           
       - name: Install Pylint
         run: pip install pylint
