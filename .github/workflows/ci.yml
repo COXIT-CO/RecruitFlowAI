@@ -1,0 +1,89 @@
+name: CI
+on:
+    pull_request:
+      branches:
+        - main
+        - dev
+
+jobs:
+  pylint:
+    runs-on: ubuntu-latest
+    permissions:
+      # Gives the action the necessary permissions for publishing new
+      # comments in pull requests.
+      pull-requests: write
+      # Gives the action the necessary permissions for pushing data to the
+      # python-coverage-comment-action branch, and for editing existing
+      # comments (to avoid publishing multiple comments in the same PR)
+      contents: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+
+      - name: Install virtual environment
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install --user virtualenv
+          python -m venv .venv
+
+      - name: Install project dependencies
+        run: |
+          source .venv/bin/activate
+          pip install -r requirements.txt
+          
+      - name: Install Pylint
+        run: pip install pylint
+     
+      - name: Run pylint
+        run: |
+          source .venv/bin/activate
+          pylint $(git ls-files '*.py') --ignore version.py
+
+  unit-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+
+      - name: Install virtual environment
+        run: |
+          python -m pip install --user virtualenv
+          python3.9 -m venv .venv_cv_scan_ai
+  
+      #-name: Install project and module dependencies
+        #run: |
+          #source .venv_cv_scan_ai/bin/activate
+          #pip install -r cv_scan_ai/requirements.txt
+          #export OPENAI_API_KEY="sk-...."
+
+      #- name: Run tests with coverage
+        #run: |
+          #source .venv_cv_scan_ai/bin/activate
+          #python -m pytest --cov=src
+
+      #- name: Coverage comment
+        #id: coverage_comment
+        #uses: py-cov-action/python-coverage-comment-action@v3
+        #with:
+          #GITHUB_TOKEN: ${{ github.token }}
+  
+      #- name: Store Pull Request comment to be posted
+        #uses: actions/upload-artifact@v3
+        #if: steps.coverage_comment.outputs.COMMENT_FILE_WRITTEN == 'true'
+        #with:
+          #name: python-coverage-comment-action
+          #path: python-coverage-comment-action.txt
+
+
