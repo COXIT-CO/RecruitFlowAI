@@ -16,10 +16,13 @@ If you made UI changes, what are the before an afters?
 
 - [ ]  Set base branch to main.
 - [ ]  Pull request is prepared: Added to sprint, added yourself as assignee, reviewers are added.
-- [ ]  PR is not very big (about 200 lines of change ideally).
-- [ ]  I have added comments to my code, particularly in hard-to-understand areas.
+- [ ]  README or any other documentation is added or updated.
+- [ ]  Clear instruction on how to run it, what are input/output, and configuration is provided.
+- [ ]  Comments are added to my code, particularly in hard-to-understand areas.
+- [ ]  Logs are added for observability, particularly in error or exception cases.
+- [ ]  Unit tests and/or sample app are added.
+- [ ]  All added tests/sample app is run in CI.
+- [ ]  PR description is clear and demo screens or recoding are attached.
+- [ ]  PR is not very big (about 400 lines of change ideally).
 - [ ]  Doesn't create any new FIXME or TODO comments. If not, please explain.
-- [ ]  Tested manually (explained the scenario, added screenshots)
-- [ ]  I have tested my changes locally before pushing them to this branch.
-- [ ]  I have updated the documentation accordingly.
-- [ ]  Followed best practice rules:https://google.github.io/styleguide/pyguide.html
+- [ ]  CI checks passed
