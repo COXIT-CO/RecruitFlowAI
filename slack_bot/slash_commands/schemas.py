@@ -1,4 +1,3 @@
-"""Model of incoming request from slack slash commands"""
 from urllib.parse import parse_qsl
 from pydantic import BaseModel
 from fastapi import Depends, Request

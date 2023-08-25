@@ -9,6 +9,9 @@
 # Files or directories to be skipped. They should be base names, not paths.
 ignore=third_party
 
+disable=C0114 # missing-module-docstring
+
+
 # Files or directories matching the regex patterns are skipped. The regex
 # matches against base names, not paths.
 ignore-patterns=

@@ -1,4 +1,3 @@
-"""Application entry point"""
 from fastapi import FastAPI
 from .slash_commands import slash_commands_router
 

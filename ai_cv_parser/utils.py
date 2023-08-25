@@ -1,4 +1,3 @@
-"""Helping function to check the ouput"""
 import json
 from pydantic.v1 import BaseModel
 

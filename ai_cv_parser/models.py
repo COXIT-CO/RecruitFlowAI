@@ -1,4 +1,3 @@
-"""The model"""
 from typing import List
 from pydantic.v1 import BaseModel, Field
 
