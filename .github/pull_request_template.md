@@ -1,20 +1,12 @@
-### 🛠 Changes being made
+### Changes description 
 
-What's the context for the changes?
+### What else do I need to know?
 
-Why did you choose to make these changes? Were there any trade-offs you had to consider?
+### How was it tested? / Demo
 
-### 🧪 How was it tested? / Demo
+### Quality check
 
-How do you know the changes are safe to ship to production? Please, explain the scenario, add screenshots.
-
-### 📸 Screenshots
-
-If you made UI changes, what are the before an afters?
-
-### 🏎 Quality check
-
-- [ ]  Set base branch to main.
+- [ ]  Set base branch to dev.
 - [ ]  Pull request is prepared: Added to sprint, added yourself as assignee, reviewers are added.
 - [ ]  README or any other documentation is added or updated.
 - [ ]  Clear instruction on how to run it, what are input/output, and configuration is provided.
@@ -26,3 +18,4 @@ If you made UI changes, what are the before an afters?
 - [ ]  PR is not very big (about 400 lines of change ideally).
 - [ ]  Doesn't create any new FIXME or TODO comments. If not, please explain.
 - [ ]  CI checks passed
+- [ ]  Followed best practice rules:https://google.github.io/styleguide/pyguide.html
