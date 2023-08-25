@@ -1,6 +1,6 @@
 import logging
 from slack_sdk import WebClient
-from slack_sdk.errors import SlackApiError
+from slack_sdk.errors import SlackClientError
 from fastapi import APIRouter, Depends, Response
 
 from slack_bot.slash_commands.schemas import Command
@@ -14,26 +14,23 @@ client = WebClient(token=env_settings.access_token.get_secret_value())
 
 @router.post("/process_command")
 def process_command(command: Command = Depends()):
-    if not command.text:
-        text = get_answear(command.command[1:])
-        try:
-            resp = client.chat_postMessage(channel=command.channel_id,
-                            text="",
-                            unfurl_links=False,
-                            blocks=[
-                                {
-                                    "type": "section",
-                                    "text": {
-                                        "type": "mrkdwn",
-                                        "text": text
-                                    }
-                                }
-                            ],
-                        )
-        except SlackApiError as e:
-            logger.error("Error in processing command '%s': ", command.command, exc_info=e)
+    text = get_answear(command.command[1:])
+    try:
+        resp = client.chat_postMessage(
+            channel=command.channel_id,
+            text="",
+            unfurl_links=False,
+            blocks=[
+                {
+                    "type": "section",
+                    "text": {
+                        "type": "mrkdwn",
+                        "text": text
+                    }
+                }
+            ],
+        )
         return Response(status_code=resp.status_code)
-    elif command.text.startswith("Hint:"):
-        # update hint
-        pass
-    elif command.text
+    except SlackClientError as e:
+        logger.error("Slack client error sending reply to command %s: \n", command.command, exc_info=e)
+        return Response(status_code=500)
