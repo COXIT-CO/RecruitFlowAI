@@ -2,21 +2,21 @@
     "generate_job_description": {
         "title": "Generate Job Description",
         "url": "https://chatcraft.org/c/iramykytyn/LkjsdteMwbbdlRkJoccI_",
-        "desc": "pass all you know about the job requirements, client and interview procedure to generate job description"
+        "hint": "pass all you know about the job requirements, client and interview procedure to generate job description"
     },
     "create_social_media_post": {
         "title": "Create Social Media Post",
         "url": "https://chatcraft.org/c/iramykytyn/rQVGPb8QFWuLm17_DDtQ2",
-        "desc": "pass job description and generate post for social media"
+        "hint": "pass job description and generate post for social media"
     },
     "match_resumes": {
         "title": "Resume Matching",
         "url": "https://chatcraft.org/c/iramykytyn/VFhFhi8nffySnIpRghNQ0",
-        "desc": "pass job requirements and link to resumes or text of resumes to know which of resumes are more suitable for the job"
+        "hint": "pass job requirements and link to resumes or text of resumes to know which of resumes are more suitable for the job"
     },
     "scan_resume": {
         "title": "Resume Scan for Mistakes",
         "url": "https://chatcraft.org/c/iramykytyn/c8i0CnulcfxJL7KStlprh",
-        "desc": "pass link to CV and get list of issues found with suggested corrections"
+        "hint": "pass link to CV and get list of issues found with suggested corrections"
     }
 }

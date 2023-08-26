@@ -41,10 +41,10 @@ class Command(BaseModel):
 class ChatCraftReply(BaseModel):
     title: str
     url: str
-    desc: str
+    hint: str
 
     def get_markdwn(self) -> str:
-        return f"""<{self.url}|*{self.title}*>\n*Hint:* {self.desc}"""
+        return f"""<{self.url}|*{self.title}*>\n*Hint:* {self.hint}"""
 
 
 class CommandReplies(BaseModel):

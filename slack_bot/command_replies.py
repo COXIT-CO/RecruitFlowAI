@@ -43,17 +43,27 @@ def reply_command(client: WebClient, command: Command):
 def edit_command(client: WebClient, command: Command):
     cmd_reply = getattr(replies, command.command[1:])
     if is_chatcraft_url(command.text):
+        field_name = "url"
+        old_value = cmd_reply.url
         cmd_reply.url = command.text
-        replies.save_model()
-        client.chat_postMessage(
-            channel=command.channel_id,
-            text="Command url is updated"
-        )
     elif "hint" in command.text[:10].lower():
-        cmd_reply.desc = command.text.lstrip("*Hhint: *")
-        replies.save_model()
-        client.chat_postMessage(
+        field_name = "hint"
+        old_value = cmd_reply.hint
+        cmd_reply.hint = command.text.lstrip("*Hhint: ")
+    else:
+        resp = client.chat_postMessage(
             channel=command.channel_id,
-            text="Command hint is updated"
+            text="I can't edit this command with provided data. "\
+            "Please provide chatcraft url or the text starting with 'Hint:' keyword"
         )
-    return Response(status_code=200)
+        return Response(status_code=200)
+    replies.save_model()
+    try:
+        resp = client.chat_postMessage(
+            channel=command.channel_id,
+            text=f"{command.command} reply changed the {field_name} from {old_value} to {command.text}"
+        )
+        return Response(status_code=resp.status_code)
+    except SlackClientError as e:
+        logger.error("Slack client error sending reply to command %s: \n", command.command, exc_info=e)
+        return Response(status_code=500)
