@@ -54,3 +54,7 @@ class CommandReplies(BaseModel):
                     "Please provide chatcraft url or the text starting with `Hint:` keyword"
             self.save_model()
             return  f"{command_name} reply changed the {field_name} from {old_value} to {command_text}"
+
+    def get_config_json(self)-> str:
+        with open(self.file_path, "r") as f:
+            return f.read()

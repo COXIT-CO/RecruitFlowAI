@@ -27,6 +27,7 @@ app.command("/create_social_media_post")(chatcraft_reply)
 app.command("/match_resumes")(chatcraft_reply)
 app.command("/scan_resume")(chatcraft_reply)
 
+
 @app.event("app_home_opened")
 async def update_home_tab(client, event, logger):
     view_model = {
@@ -41,6 +42,14 @@ async def update_home_tab(client, event, logger):
                     }
                 ]
             }
+    view_model["blocks"].append({
+        "type": "header",
+        "text": {
+            "type": "plain_text",
+            "text": "Follow the link below to process the candidate:",
+            "emoji": True
+        }
+    })
     for text in replies.iter_chatcraft_replies():
         view_model["blocks"].append({
             "type": "divider",
@@ -53,6 +62,25 @@ async def update_home_tab(client, event, logger):
             }
         })
 
+    view_model["blocks"].append({
+        "type": "divider",
+    })
+    view_model["blocks"].append({
+        "type": "header",
+        "text": {
+            "type": "plain_text",
+            "text": "Current configuration file:",
+            "emoji": True
+        }
+    })
+    view_model["blocks"].append({
+        "type": "section",
+        "text": {
+            "type": "mrkdwn",
+            "text": "```\n" + replies.get_config_json() + "```"
+        }
+    })
+    
     try:
         await client.views_publish(
             user_id=event["user"],
