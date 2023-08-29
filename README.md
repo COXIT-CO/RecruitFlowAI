@@ -25,11 +25,20 @@ For more details checkout the [project Notion](https://cotton-radar-ab3.notion.s
 - Search of candidates in internal database based on job requirements.
 - AI assistant integrated into Slack Bot.
 
+## Setting Up the Bot
+1. Go to [api.slack.com/apps](https://api.slack.com/apps), log into your workspace and click on Create an app
+2. Click on From scratch and then give it a name and select your workspace.
+3. Click on the Slash Commands and add all commands from Slack Bot Comamnds with Request URL set to `/process_command` edpoint, for example: https://coxit.co/process_command.
+4. Click on OAuth & Permissions to add Scopes: `channels:history`, `chat:write`, `commands`, `im:history`. These are the permissions the bot needs to write messages and send files into the Slack channels.
+5. Cliack on Event Subscriptions and Enable Events. Set the URL to send messages to `/message` endpoint, for example https://coxit.co/message. 
+6. Finally, scroll all the way up and click on Install to workspace, and Allow on the following screen. This should now show a screen with the Bot User OAuth Token visible. Take note of this token, since it’s the one we will be using to deploy the Bot.
+
 ## Slack Bot Deployment
 1. Create in base folder `.env` file and specify:
    - `SLACK_ACCESS_TOKEN`
    - `SLACK_SIGNING_SECRET`
    - `SLACK_BOT_DATA_PATH`
+   - `OPENAI_API_KEY`
 2. Build docker image `docker build -t recruit_flow_bot_image .`
 3. Run container `docker run -d --name recruit_flow_bot_cont  -p 3000:3000 --restart=always recruit_flow_bot_image`
 
@@ -43,6 +52,8 @@ For more details checkout the [project Notion](https://cotton-radar-ab3.notion.s
 - `/search_db` - pass job description and receive list of candidates from internal database
 - `/assistant` - chat with OpenAI from recruiter persona
 
+Messaging with AI assistant - just ask any question in RecruitFlowAI home app and receive response in the thread! Conversation can be proceeded in the same chat and resumed any tiem later.
+
 Commands to be designed and added later:
 - `/brand_resume`
 - `/compose_feedback`
@@ -54,8 +65,7 @@ The project follows the following directory structure:
 .
 ├── Dockerfile
 ├── README.md
-├── ai_assistant
-│   └── openai
+├── recruit_flow_ai
 ├── requirements.txt
 ├── setup.py
 ├── slack_bot
@@ -64,7 +74,7 @@ The project follows the following directory structure:
 
 - `Dockerfile` - docker file to start Slack Bot
 - `README.md` - the main documentation file for the project.
-- `ai_assistant/openai` - openai integration module (api and logic to be imported in other modules)
+- `recruit_flow_ai` - OpenAI integration module
 - `requirements.txt` - test dependencies common for all modules.
 - `setup.py`  - currently setup to be used for CI purposes only.
 - `slack_bot` - RecruitFlowAI Bot  

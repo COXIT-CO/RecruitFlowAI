@@ -1,5 +1,6 @@
 """Model of incoming request from slack slash commands"""
 from urllib.parse import parse_qsl
+from typing import List, Any, Optional
 from pydantic import BaseModel
 from fastapi import Depends, Request
 
@@ -36,3 +37,39 @@ class Command(BaseModel):
 
     def __init__(self, form_data: dict = Depends(with_form_data)):
         super().__init__(**form_data)
+
+
+class SlackMessageEventModel(BaseModel):
+    """ https://api.slack.com/events/message """
+    client_msg_id: Optional[str] = None
+    bot_id: Optional[str] = None
+    type: str
+    text: str
+    user: str
+    ts: str
+    blocks: List
+    team: str
+    channel: str
+    event_ts: str
+    thread_ts: str = None
+    channel_type: str
+
+
+class SlackEventModel(BaseModel):
+    """ https://api.slack.com/events/message """
+    token: str
+    team_id: str
+    context_team_id: str
+    context_enterprise_id: Any
+    api_app_id: str
+    event: SlackMessageEventModel
+    type: str
+    event_id: str
+    event_time: int
+    authorizations: List
+    is_ext_shared_channel: bool
+    event_context: str
+
+    def __init__(self, form_data: dict = Depends(with_form_data)):
+        super().__init__(**form_data)
+
