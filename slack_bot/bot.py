@@ -18,7 +18,7 @@ async def chatcraft_reply(ack, respond, body):
     """General command handler for chatcraft replies"""
     await ack()
     response_text = replies.get_response_text(command_name=body["command"][1:],
-                                      command_text=body["text"])
+                                              command_text=body["text"])
     await respond(response_text, unfurl_links=True)
 
 
