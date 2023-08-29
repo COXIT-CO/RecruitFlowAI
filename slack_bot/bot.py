@@ -11,7 +11,7 @@ app = AsyncApp(
     signing_secret=env_settings.signing_secret.get_secret_value()
 )
 app_handler = AsyncSlackRequestHandler(app)
-cmd_replies = CmdReplyModel(config_file=env_settings.config_data_dir+"/chatcraft_templates.json")
+cmd_replies = CmdReplyModel(config_file=env_settings.config_data_dir+"chatcraft_templates.json")
 
 
 async def chatcraft_reply(ack, respond, body, logger):

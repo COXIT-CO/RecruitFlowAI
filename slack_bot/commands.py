@@ -26,12 +26,12 @@ class CmdReplyModel(BaseModel):
     def __init__(self, config_file: FilePath):
         try:
             with open(config_file, "r") as f:
-                super().__init__(file_path=config_file, **json.load(f))
+                super().__init__(config_file=config_file, **json.load(f))
         except OSError as e:
             logger.critical("Error loading chatcraft config file: %s", e)
             raise e
 
-    def __iter__(self):
+    def get_replies(self):
         for field in self:
             if isinstance(field[1], ChatCraftReply):
                 yield field[1].get_markdwn()

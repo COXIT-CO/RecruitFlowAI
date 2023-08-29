@@ -7,8 +7,8 @@ class Settings(BaseSettings):
     access_token: SecretStr
     signing_secret: SecretStr
     config_data_dir: str
-    app_config_token: SecretStr = None
-    bot_app_id: str = None
+    app_config_token: SecretStr = SecretStr("")
+    bot_app_id: str = ""
 
     class Config:
         env_file = ".env"

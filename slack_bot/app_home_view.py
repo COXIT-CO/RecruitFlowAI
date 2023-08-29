@@ -28,7 +28,7 @@ def get_home_blocks(cmd_replies: CmdReplyModel):
     return  [
         header_block("Follow the link below to process the candidate:"),
         devider_block(),
-        *[mrkdwn_block(text) for text in cmd_replies],
+        *[mrkdwn_block(text) for text in cmd_replies.get_replies()],
         devider_block(),
         header_block("Current configuration file:"),
         mrkdwn_block(f"```{cmd_replies.get_config()}```")
