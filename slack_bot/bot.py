@@ -2,7 +2,7 @@ import logging
 from slack_bolt.async_app import AsyncApp
 from slack_bolt.adapter.fastapi.async_handler import AsyncSlackRequestHandler
 
-from slack_bot.reply_models import CommandReplies
+from slack_bot.reply_models import CmdReplyModel
 from slack_bot.settings import env_settings
 
 logging.basicConfig(level=logging.DEBUG)
@@ -11,14 +11,14 @@ app = AsyncApp(
     signing_secret=env_settings.signing_secret.get_secret_value()
 )
 app_handler = AsyncSlackRequestHandler(app)
-replies = CommandReplies(file_path=env_settings.bot_data_path)
+cmd_replies = CmdReplyModel(config_file=env_settings.config_data_dir+"/chatcraft_templates.json")
 
 
 async def chatcraft_reply(ack, respond, body):
     """General command handler for chatcraft replies"""
     await ack()
-    response_text = replies.get_response_text(command_name=body["command"][1:],
-                                              command_text=body["text"])
+    response_text = cmd_replies.get_response_text(command_name=body["command"][1:],
+                                                  command_text=body["text"])
     await respond(response_text, unfurl_links=True)
 
 
@@ -50,7 +50,7 @@ async def update_home_tab(client, event, logger):
             "emoji": True
         }
     })
-    for text in replies.iter_chatcraft_replies():
+    for text in cmd_replies.iter_chatcraft_replies():
         view_model["blocks"].append({
             "type": "divider",
         })
@@ -77,7 +77,7 @@ async def update_home_tab(client, event, logger):
         "type": "section",
         "text": {
             "type": "mrkdwn",
-            "text": "```\n" + replies.get_config_json() + "```"
+            "text": "```\n" + cmd_replies.get_config_json() + "```"
         }
     })
     
