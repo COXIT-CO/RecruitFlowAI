@@ -70,10 +70,7 @@ class RecruitFlowAI:
             bool: True if the API key is valid, False otherwise.
         """
         pattern = r"^sk-[a-zA-Z0-9]{32,}$"
-        if isinstance(api_key, str) and re.match(pattern, api_key):
-            return True
-        else:
-            return False
+        return bool(isinstance(api_key, str) and re.match(pattern, api_key))
 
     def __init__(self, api_key = ""):
         if api_key == "":
@@ -86,7 +83,7 @@ class RecruitFlowAI:
 
         if not self.is_valid_api_key_format(self.api_key):
             raise ValueError("Invalid API key: " + self.api_key)
-     
+
         openai.api_key = self.api_key
 
         config: ConfigModel = parse_config(PROMPTS_CONFIG_PATH)

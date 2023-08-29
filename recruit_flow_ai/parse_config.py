@@ -1,3 +1,21 @@
+"""
+This module provides a way to parse and validate configuration files using 
+Pydantic models. 
+
+The module contains two classes: `Prompts` and `ConfigModel` which corresponds
+the following JSON configuration file schema:
+
+```json
+{
+    "model": "gpt-4",
+    "temperature": 0,
+    "prompts": { 
+        "ai_assistant": {
+            "system": "I am a recruiter specialist in IT service company."
+        }
+    }
+}
+"""
 from pydantic import BaseModel, Field
 from typing import Dict
 import os

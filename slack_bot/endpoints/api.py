@@ -10,7 +10,7 @@ from slack_bot.endpoints.answears import get_answear
 from slack_bot.settings import env_settings
 from recruit_flow_ai import RecruitFlowAI
 
-# TODO: make logging configurable in one place to be common for all modules 
+# TODO: make logging configurable in one place to be common for all modules
 logFormatter = logging.Formatter("%(asctime)s [%(threadName)-12.12s] [%(levelname)-5.5s]  %(message)s")
 logger = logging.getLogger(__name__)
 logger.setLevel("DEBUG")
@@ -74,7 +74,7 @@ async def handle_message_events(request_body_json):
         # parse only user messages (indicated with client_msg_id field)
         # no need to react on bot messages
         if slack_message.event.client_msg_id:
-            logger.debug("Message identified as Client message: message_text=%s", 
+            logger.debug("Message identified as Client message: message_text=%s",
                          slack_message.event.text)
             if len(slack_message.event.text) == 0:
                 # why would we handle empty messages from the user, skip it
