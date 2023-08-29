@@ -53,7 +53,7 @@ jobs:
           elif [[ $new_major -eq $old_major && $new_minor -lt $old_minor ]]; then
             echo "Version's minor in the source branch is lower than the one in the targeted branch!";
             exit 1;
-          elif [[ $new_major -eq $old_major && $new_minor -eq $old_minor && $new_patch -lt $old_patch ]]; then
+          elif [[ $new_major -eq $old_major && $new_minor -eq $old_minor && $new_patch -le $old_patch ]]; then
             echo "Version's patch in the source branch is lower than the one in the targeted branch!";
             exit 1;
           fi
