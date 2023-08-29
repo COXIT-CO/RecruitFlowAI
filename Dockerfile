@@ -1,15 +1,15 @@
 FROM python:3.9
 
-WORKDIR /cv_scan_ai
+WORKDIR /recruit_flow_bot
 
-COPY ./requirements.txt /cv_scan_ai/requirements.txt
+COPY ./requirements.txt /recruit_flow_bot/requirements.txt
 
-RUN pip install --no-cache-dir --upgrade -r /cv_scan_ai/requirements.txt
+RUN pip install --no-cache-dir --upgrade -r /recruit_flow_bot/requirements.txt
 
-COPY ./slack_bot /cv_scan_ai/slack_bot
+COPY ./slack_bot /recruit_flow_bot/slack_bot
 
-COPY ./slack_bot/data /cv_scan_ai/data
+COPY ./slack_bot/config_data /recruit_flow_bot/config_data
 
-COPY ./.env /cv_scan_ai/.env
+COPY ./.env /recruit_flow_bot/.env
 
 CMD ["uvicorn", "slack_bot.main:app", "--host", "0.0.0.0", "--port", "3000", "--proxy-headers"]
