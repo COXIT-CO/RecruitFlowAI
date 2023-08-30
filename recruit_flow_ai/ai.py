@@ -67,7 +67,8 @@ class RecruitFlowAI:
         Initializes the RecruitFlowAI object with the provided API key.
 
         Args:
-            api_key (str): The API key for accessing the OpenAI API. If not provided, it will be read from the .env file.
+            api_key (str): The API key for accessing the OpenAI API. If not provided, 
+            it will be read from the .env file.
 
         Raises:
             ValueError: If the API key is not provided or if it is not valid.
