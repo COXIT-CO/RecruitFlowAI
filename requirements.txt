@@ -6,6 +6,3 @@ pydantic==2.3.0
 pydantic-settings==2.0.3
 uvicorn==0.23.2
 pyngrok==6.0.0
-# ai_cv_parser
-kor==0.13.0
-pdfminer.six
