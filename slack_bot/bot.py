@@ -31,7 +31,7 @@ app.command("/scan_resume")(chatcraft_reply)
 
 
 @app.event("app_home_opened")
-async def update_home_tab(client, event, logger): 
+async def update_home_tab(client, event, logger):
     resp = await client.views_publish(
         user_id=event["user"],
         view= {
