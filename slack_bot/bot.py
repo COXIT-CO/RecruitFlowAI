@@ -3,7 +3,7 @@ from slack_bolt.adapter.fastapi.async_handler import AsyncSlackRequestHandler
 
 from slack_bot.commands import CmdReplyModel
 from slack_bot.settings import env_settings
-from slack_bot.app_home_view import get_home_blocks
+from slack_bot.bot_home_view import get_home_blocks
 
 
 app = AsyncApp(
