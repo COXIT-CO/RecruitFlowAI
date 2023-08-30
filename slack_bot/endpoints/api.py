@@ -4,6 +4,7 @@ from slack_sdk import WebClient
 from slack_sdk.errors import SlackApiError
 from fastapi import APIRouter, Depends, Response, Request, BackgroundTasks
 from typing import Any
+from pydantic import ValidationError
 
 from slack_bot.endpoints.schemas import Command, SlackEventModel
 from slack_bot.endpoints.answears import get_answear
@@ -124,5 +125,8 @@ async def handle_message_events(request_body_json):
             logger.debug("Not a user message. Should be Bot message.")
     except SlackApiError as e:
         logger.error("Error in processing message request: ", exc_info=e)
+    except ValidationError as e:
+        logger.error("Pydantic validation error: ", exc_info=e)
+
 
 
