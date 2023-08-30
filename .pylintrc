@@ -9,8 +9,8 @@
 # Files or directories to be skipped. They should be base names, not paths.
 ignore=third_party
 
-disable=C0114, W1514 # missing-module-docstring
-
+disable=C0114, # missing-module-docstring
+        W1514  # open files without encoding parameter
 
 # Files or directories matching the regex patterns are skipped. The regex
 # matches against base names, not paths.
