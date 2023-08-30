@@ -1,5 +1,6 @@
-""" Application entry point """
-from typing import Tuple, Any
+import io
+import pathlib
+from typing import Tuple, Any, Union
 from langchain.chat_models import ChatOpenAI
 from langchain.callbacks import get_openai_callback
 
@@ -10,6 +11,7 @@ from settings import env_settings
 from models import Candidate
 from examples import read_examples
 
+FileOrName = Union[pathlib.PurePath, str, io.IOBase]
 
 llm = ChatOpenAI(
     model_name="gpt-4",
@@ -31,16 +33,23 @@ chain = create_extraction_chain(llm,
                                 encoder_or_encoder_class="json",
                                 input_formatter="triple_quotes")
 
-def parse_resume(path: str)->Candidate:
+
+def parse_resume(path: FileOrName)->Candidate:
+    """Extracts the text from the pdf file and returns a Candidate object"""
     cv_text = extract_text(path)
     return chain.run(cv_text)["validated_data"]
 
 
 def get_prompt()->str:
+    """Returns the prompt we use to get Candidate"""
     return chain.prompt.format_prompt(text="[resume text]").to_string()
 
 
-def parse_resume_with_metrics(path: str)->Tuple[Candidate, Any]:
+def parse_resume_with_metrics(path: FileOrName)->Tuple[Candidate, Any]:
+    """
+    Extracts the text from the pdf file and returns a Candidate object 
+    with the metrics of openai request (token, cost, etc.
+    """
     cv_text = extract_text(path)
     with get_openai_callback() as metrics:
         return chain.run(cv_text)["validated_data"], metrics

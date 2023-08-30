@@ -1,4 +1,3 @@
-"""Reading all examples and formatting them"""
 import os
 import json
 from typing import Sequence, Tuple, Dict, Any
@@ -7,6 +6,10 @@ curr_dir = os.path.dirname(__file__)
 
 
 def read_examples()->Sequence[Tuple[str, Dict[str, Any]]]:
+    """
+    Read examples from the examples directory and 
+    return the correct format of the data for the prompt  
+    """
     contents, expected_results = {}, {}
     dir_ = os.path.join(curr_dir, "examples")
     for path in os.listdir(dir_):

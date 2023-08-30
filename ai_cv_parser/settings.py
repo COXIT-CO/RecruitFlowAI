@@ -1,9 +1,9 @@
-"""Environment settings"""
 from pydantic import SecretStr
 from pydantic_settings import BaseSettings
 
 
 class Settings(BaseSettings):
+    """Pydantic environment settings"""
     api_key: SecretStr
 
     class Config:

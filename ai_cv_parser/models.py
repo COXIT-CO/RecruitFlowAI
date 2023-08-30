@@ -1,10 +1,12 @@
-"""The model"""
 from typing import List
 from pydantic.v1 import BaseModel, Field
 
 
 class Candidate(BaseModel):
-    """Expected output of parsing a resume"""
+    """
+    Pydantic model that describes the data expected to parse from the CV.
+    Field descriptions will be used for OpenAI prompt
+    """
     email: str = Field(description="The email of a job candidate")
     full_name: str = Field(description="The full name of a job candidate")
     summary: str = Field(
