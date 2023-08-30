@@ -2,11 +2,16 @@
 RecruitFlowAI is a Slack bot with OpenAI integration aimed to assist COXIT's recruiters during the entire recruitment pipeline.
 
 ## Table of Contents
-- [Recruitment Pipeline in COXIT](#recruitment-pipeline-in-coxit)
-- [Project Description](#project-description)
-- [Slack Bot Deployment](#slack-bot-deployment)
-- [Slack Bot Commands](#slack-bot-commands)
-- [Project Structure](#project-structure)
+- [RecruitFlowAI](#recruitflowai)
+  - [Table of Contents](#table-of-contents)
+  - [Project Description](#project-description)
+  - [Actively Developing Functionality for Release 0.1.0.](#actively-developing-functionality-for-release-010)
+  - [Slack Bot](#slack-bot)
+    - [Deployment](#deployment)
+    - [Comamnds](#comamnds)
+  - [AI CV Parser](#ai-cv-parser)
+    - [Usage Example](#usage-example)
+  - [Project Structure](#project-structure)
 
 
 ## Project Description
@@ -25,20 +30,28 @@ For more details checkout the [project Notion](https://cotton-radar-ab3.notion.s
 - Search of candidates in internal database based on job requirements.
 - AI assistant integrated into Slack Bot.
 
-## Slack Bot Deployment
+## Slack Bot
+
+### Deployment
 1. Create in base folder `.env` file and specify:
-   - `SLACK_ACCESS_TOKEN`
-   - `SLACK_SIGNING_SECRET`
-   - `SLACK_BOT_DATA_PATH`
+   - `SLACK_ACCESS_TOKEN` - Bot User OAuth Token
+   - `SLACK_SIGNING_SECRET` - Signing Secret from the App credentials section 
+   - `SLACK_CONFIG_DATA_DIR` - the path to the directory that contains `manifest.json` and `chatcraft_templates.json` (optional for docker run)
+   - `SLACK_BOT_APP_ID` - App ID from the App credentials section 
+   - `SLACK_APP_CONFIG_TOKEN` - needed to run the bot using ngrok. It expires every 12 hours, do not forget to update ([reference](https://api.slack.com/authentication/config-tokens))
+
 2. Build docker image `docker build -t recruit_flow_bot_image .`
 3. Run container `docker run -d --name recruit_flow_bot_cont  -p 3000:3000 --restart=always recruit_flow_bot_image`
 
 
-## Slack Bot Comamnds
+### Comamnds
 - `/generate_job_description` - pass all you know about the job requirements, client and interview procedure to generate job description.
 - `/create_social_media_post` - pass job description and generate post for social media
 - `/match_resumes` - pass job requirements and link to resumes to know which of candidates are more suitable
-- `/scan_resume` - pass link to PDF formatted resume and get lost of mistakes found, and suggested corrections 
+- `/scan_resume` - pass link to PDF formatted resume and get lost of mistakes found, and suggested corrections
+
+Note: all the commands above can take chatcraft url or hint text `Hint: ...` as text parameters, it will update the configuration for all users
+
 - `/save_resume <link>` - add resume to internal DB
 - `/search_db` - pass job description and receive list of candidates from internal database
 - `/assistant` - chat with OpenAI from recruiter persona
@@ -47,6 +60,25 @@ Commands to be designed and added later:
 - `/brand_resume`
 - `/compose_feedback`
 - `/generate_job_report`
+
+## AI CV Parser
+Python package that provides the functionality to parse the CVs in the PDF format and extract the next information using GPT-4 model:
+- email
+- full_name
+- summary
+- list of mentioned skills 
+- education
+- experience
+
+### Usage Example
+```
+from ai_cv_parser import parse_resume
+
+with open('cv.pdf') as file:
+   resume_model = parse_resume(file)
+
+```
+
 
 ## Project Structure
 The project follows the following directory structure:
