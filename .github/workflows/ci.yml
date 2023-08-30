@@ -71,7 +71,6 @@ jobs:
       - name: Run tests with coverage
         run: |
           source .venv/bin/activate
-          pip install pytest
           python -m pytest --cov=recruit_flow_ai --cov=slack_bot  --cov-config=.coveragerc
           
       - name: Coverage comment

@@ -31,7 +31,7 @@ class TestConfigModel(unittest.TestCase):
         }
 
     def test_parse_config_valid(self):
-        with open("test_config.json", "w", encoding='utf-8') as f:
+        with open("test_config.json", "w", encoding="utf-8") as f:
             json.dump(self.valid_config, f)
 
         config = parse_config("test_config.json")
@@ -39,7 +39,7 @@ class TestConfigModel(unittest.TestCase):
         os.remove("test_config.json")
 
     def test_parse_config_invalid(self):
-        with open("test_config.json", "w", encoding='utf-8') as f:
+        with open("test_config.json", "w", encoding="utf-8") as f:
             json.dump(self.invalid_config, f)
 
         with self.assertRaises(ValueError):
