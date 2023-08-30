@@ -1,3 +1,4 @@
+import os
 from slack_bolt.async_app import AsyncApp
 from slack_bolt.adapter.fastapi.async_handler import AsyncSlackRequestHandler
 
@@ -11,7 +12,7 @@ app = AsyncApp(
     signing_secret=env_settings.signing_secret.get_secret_value()
 )
 app_handler = AsyncSlackRequestHandler(app)
-cmd_replies = CmdReplyModel(config_file=env_settings.config_data_dir+"chatcraft_templates.json")
+cmd_replies = CmdReplyModel(config_file=os.path.join(env_settings.config_data_dir,"chatcraft_templates.json"))
 
 
 async def chatcraft_reply(ack, respond, body, logger):

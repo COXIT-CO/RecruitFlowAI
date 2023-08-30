@@ -1,3 +1,4 @@
+import os
 import sys
 import json
 import logging
@@ -11,7 +12,7 @@ logger = logging.getLogger(__name__)
 def update_bot_manifest(public_url:str):
     """Updates bot manifest with current ngrok tunnel url"""
     client = WebClient(token=env_settings.app_config_token.get_secret_value())
-    with open (env_settings.config_data_dir+"manifest.json", "r") as file:
+    with open (os.path.join(env_settings.config_data_dir, "manifest.json"), "r") as file:
         manifest_string = file.read().replace("{$bot_base_url}", public_url)
         manifest_json = json.loads(manifest_string)
     response = client.api_call(

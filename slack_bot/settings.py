@@ -6,7 +6,7 @@ class Settings(BaseSettings):
     """Environment variables settings"""
     access_token: SecretStr
     signing_secret: SecretStr
-    config_data_dir: str
+    config_data_dir: str = "./config_data/"
     app_config_token: SecretStr = SecretStr("")
     bot_app_id: str = ""
 

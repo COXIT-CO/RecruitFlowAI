@@ -12,4 +12,4 @@ COPY ./slack_bot/config_data /recruit_flow_bot/config_data
 
 COPY ./.env /recruit_flow_bot/.env
 
-CMD ["uvicorn", "slack_bot.main:app", "--host", "0.0.0.0", "--port", "3000", "--proxy-headers"]
+CMD ["uvicorn", "slack_bot.main:fast_app", "--host", "0.0.0.0", "--port", "3000", "--proxy-headers"]
