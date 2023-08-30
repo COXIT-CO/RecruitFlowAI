@@ -9,4 +9,5 @@ fast_app = FastAPI()
 
 @fast_app.post("/slack/events")
 async def handle_events(req: Request):
+    """Asyncronious events listener of slack bot events"""
     return await app_handler.handle(req)

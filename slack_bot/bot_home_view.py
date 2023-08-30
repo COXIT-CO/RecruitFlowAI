@@ -25,6 +25,7 @@ def header_block(text: str):
 
 
 def get_home_blocks(cmd_replies: CmdReplyModel):
+    """Provides the links of the blocks for the app home section"""
     return  [
         header_block("Follow the link below to process the candidate:"),
         devider_block(),

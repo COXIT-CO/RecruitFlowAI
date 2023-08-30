@@ -6,6 +6,7 @@ from slack_bot.utils import is_chatcraft_url
 logger = logging.getLogger(__name__)
 
 class ChatCraftReply(BaseModel):
+    """ Data structure of the bot reply with chatcraft link"""
     title: str
     url: str
     hint: str
@@ -32,6 +33,7 @@ class CmdReplyModel(BaseModel):
             raise e
 
     def get_replies(self):
+        """Generator of chatcraft replies"""
         for field in self:
             if isinstance(field[1], ChatCraftReply):
                 yield field[1].get_markdwn()
@@ -45,7 +47,7 @@ class CmdReplyModel(BaseModel):
             file.write(self.model_dump_json(indent=4, exclude=["config_file"]))
 
     def get_response_text(self, command_name: str, command_text: str) -> str:
-        """Format the data for chatcraft reply and update the model"""
+        """Format the data for chatcraft reply or update the model and notify the user"""
         command_reply_model = getattr(self, command_name)
         if not command_text:
             return command_reply_model.get_markdwn()

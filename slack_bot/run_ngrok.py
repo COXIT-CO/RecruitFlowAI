@@ -29,6 +29,7 @@ def update_bot_manifest(public_url:str):
 
 
 def setup_ngrok():
+    """Create new ngrok tunnel and updates the manifest file"""
     port = sys.argv[sys.argv.index("--port") + 1] if "--port" in sys.argv else 8000
     public_url = ngrok.connect(port).public_url
     logger.info("Running ngrok tunnel %s -> http://localhost:%s", public_url, port)
