@@ -37,3 +37,4 @@ def convert_slack_msgs_to_openai_msgs(slack_messages: list) -> list:
 
         openai_messages.append({"role": role, "content": content})
     return openai_messages
+

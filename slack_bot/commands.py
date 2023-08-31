@@ -65,4 +65,3 @@ class CmdReplyModel(BaseModel):
                     "Please provide chatcraft url or the text starting with `Hint:` keyword"
             self.save_config()
             return  f"{command_name} reply changed the {field_name} from {old_value} to {command_text}"
-
