@@ -8,6 +8,7 @@ functions under test react.
 from unittest import IsolatedAsyncioTestCase
 from unittest.mock import patch, MagicMock
 from slack_bot.endpoints.api import convert_slack_msgs_to_openai_msgs, handle_message_events
+from slack_bot.endpoints.schemas import SlackEventModel
 
 class TestFunctions(IsolatedAsyncioTestCase):
     """
@@ -54,10 +55,13 @@ class TestFunctions(IsolatedAsyncioTestCase):
             "is_ext_shared_channel": "false",
             "event_context": "EC01"
         }
+
+        message_event = SlackEventModel(**request_body_json)
+
         mock_response = MagicMock()
         mock_response.status_code = 200
         mock_client.chat_postMessage.return_value = mock_response
-        await handle_message_events(request_body_json)
+        await handle_message_events(message_event)
         mock_client.chat_postMessage.assert_called_once()
 
     @patch("slack_bot.endpoints.api.client")
@@ -88,19 +92,12 @@ class TestFunctions(IsolatedAsyncioTestCase):
             "is_ext_shared_channel": "false",
             "event_context": "EC01"
         }
+
+        message_event = SlackEventModel(**request_body_json)
+
         mock_response = MagicMock()
         mock_response.status_code = 200
         mock_client.chat_postMessage.return_value = mock_response
-        await handle_message_events(request_body_json)
+        await handle_message_events(message_event)
         mock_client.chat_postMessage.assert_not_called()
 
-    @patch("slack_bot.endpoints.api.client")
-    async def test_handle_message_events_invalid_json(self, mock_client):
-        request_body_json = {
-            "invalid_key": "invalid_value"
-        }
-        mock_response = MagicMock()
-        mock_response.status_code = 200
-        mock_client.chat_postMessage.return_value = mock_response
-        await handle_message_events(request_body_json)
-        mock_client.chat_postMessage.assert_not_called()

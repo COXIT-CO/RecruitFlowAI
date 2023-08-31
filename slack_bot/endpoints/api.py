@@ -96,6 +96,7 @@ async def handle_message_events(slack_message: SlackEventModel):
             )
 
             openai_content = ""
+            slack_msgs = []
             if "messages" in conversation_replies:
                 slack_msgs = conversation_replies["messages"]
                 openai_msgs = convert_slack_msgs_to_openai_msgs(slack_messages=slack_msgs)
@@ -109,7 +110,7 @@ async def handle_message_events(slack_message: SlackEventModel):
             # This is the hack to not sent repetive responces to the thread.
             # This may happen if Slack send message as retry:
             # https://api.slack.com/apis/connections/events-api#retries
-            # This should be handled somehow better, at least to not process 
+            # This should be handled somehow better, at least to not process
             # such messages with openai.
             for msg in slack_msgs:
                 if "text" in msg and (msg["text"] == openai_content):
