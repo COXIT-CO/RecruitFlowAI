@@ -28,7 +28,7 @@ import os   # used to read OPANAI_API_KEY env variable
 from dotenv import load_dotenv
 from pathlib import Path
 
-from .parse_config import parse_config, ConfigModel
+from recruit_flow_ai.parse_config import parse_config, ConfigModel
 
 PROMPTS_CONFIG_PATH = "recruit_flow_ai/prompts_config.json"
 ISSUES_REPORT_MSG = "Report this to #recruitflowai_issues channel."
@@ -125,18 +125,12 @@ class RecruitFlowAI:
         if self.system_prompt:
             openai_msgs.insert(0, {"role": "system", "content": self.system_prompt})
 
-        # Remove duplicated messages, this may happen if slack sends the same bot message as response
-        unique_msgs = []
-        for msg in openai_msgs:
-            if msg not in unique_msgs:
-                unique_msgs.append(msg)
-
         error_msg = str()
         response_msg = str()
         try:
             response = openai.ChatCompletion.create(
                 model=self.model,
-                messages=unique_msgs,
+                messages=openai_msgs,
                 temperature=self.temperature,
                 #TODO invetigate if its possible to stream slack message with Slack
                 stream=False
@@ -150,37 +144,30 @@ class RecruitFlowAI:
             #Handle timeout error, e.g. retry or log
             error_msg = "OpenAI API request timed out"
             logger.error("%s: ", error_msg, exc_info=e)
-            pass
         except openai.error.APIError as e:
             #Handle API error, e.g. retry or log
             error_msg = "OpenAI API returned an API Error"
             logger.error("%s: ", error_msg, exc_info=e)
-            pass
         except openai.error.APIConnectionError as e:
             #Handle connection error, e.g. check network or log
             error_msg = "OpenAI API request failed to connect"
             logger.error("%s: ", error_msg, exc_info=e)
-            pass
         except openai.error.InvalidRequestError as e:
             #Handle invalid request error, e.g. validate parameters or log
             error_msg = "OpenAI API request was invalid"
             logger.error("%s: ", error_msg, exc_info=e)
-            pass
         except openai.error.AuthenticationError as e:
             #Handle authentication error, e.g. check credentials or log
             error_msg = "OpenAI API request was not authorized"
             logger.error("%s: ", error_msg, exc_info=e)
-            pass
         except openai.error.PermissionError as e:
             #Handle permission error, e.g. check scope or log
             error_msg = "OpenAI API request was not permitted"
             logger.error("%s: ", error_msg, exc_info=e)
-            pass
         except openai.error.RateLimitError as e:
             #Handle rate limit error, e.g. wait or log
             error_msg = "OpenAI API request exceeded rate limit"
             logger.error("%s: ", error_msg, exc_info=e)
-            pass
 
         if response_msg == "":
             response_msg = error_msg + "." + ISSUES_REPORT_MSG

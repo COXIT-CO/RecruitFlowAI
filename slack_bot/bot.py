@@ -1,3 +1,4 @@
+import logging
 import os
 from slack_bolt.async_app import AsyncApp
 from slack_bolt.adapter.fastapi.async_handler import AsyncSlackRequestHandler
@@ -10,6 +11,14 @@ from slack_bot.utils import convert_slack_msgs_to_openai_msgs, AI_PROCESSING_NOT
 
 from recruit_flow_ai import RecruitFlowAI
 
+logFormatter = logging.Formatter("%(asctime)s [%(threadName)-12.12s] [%(levelname)-5.5s]  %(message)s")
+logger = logging.getLogger(__name__)
+logger.setLevel("DEBUG")
+
+consoleHandler = logging.StreamHandler()
+consoleHandler.setFormatter(logFormatter)
+logger.addHandler(consoleHandler)
+
 app = AsyncApp(
     token=env_settings.access_token.get_secret_value(),
     signing_secret=env_settings.signing_secret.get_secret_value()
@@ -18,7 +27,7 @@ app_handler = AsyncSlackRequestHandler(app)
 cmd_replies = CmdReplyModel(config_file=os.path.join(env_settings.config_data_dir,"chatcraft_templates.json"))
 ai = RecruitFlowAI()
 
-async def chatcraft_reply(ack, respond, body, logger):
+async def chatcraft_reply(ack, respond, body):
     """General command handler for chatcraft replies"""
     await ack()
     response_text = cmd_replies.get_response_text(command_name=body["command"][1:],
@@ -34,7 +43,7 @@ app.command("/scan_resume")(chatcraft_reply)
 
 
 @app.event("app_home_opened")
-async def update_home_tab(client, event, logger):
+async def update_home_tab(client, event):
     """Publish the home view every time the home tab is opened"""
     resp = await client.views_publish(
         user_id=event["user"],
@@ -50,9 +59,10 @@ async def update_home_tab(client, event, logger):
 
 # https://api.slack.com/events/message
 @app.event({"type": "message", "subtype": None})
-async def reply_in_thread(client, event, logger):
+async def reply_in_thread(client, event):
     message_event = SlackMessageEventModel(**event)
     if message_event.is_from_client():
+        logger.debug("Client message received: message=%s", message_event.text)
         thread_ts = message_event.thread_ts if message_event.thread_ts else message_event.ts
 
         # https://api.slack.com/methods/conversations.replies
