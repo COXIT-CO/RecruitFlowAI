@@ -58,18 +58,15 @@ class SlackMessageEventModel(BaseModel):
 class SlackEventModel(BaseModel):
     """ https://api.slack.com/events/message """
     token: str
-    team_id: str
-    context_team_id: str
-    context_enterprise_id: Any
-    api_app_id: str
-    event: SlackMessageEventModel
+    team_id: str = None
+    context_team_id: str = None
+    context_enterprise_id: Any = None
+    api_app_id: str = None
+    event: SlackMessageEventModel = None
     type: str
-    event_id: str
-    event_time: int
-    authorizations: List
-    is_ext_shared_channel: bool
-    event_context: str
-
-    def __init__(self, form_data: dict = Depends(with_form_data)):
-        super().__init__(**form_data)
-
+    event_id: str = None
+    event_time: int = None
+    authorizations: List = None
+    is_ext_shared_channel: bool = None
+    event_context: str = None
+    challenge: str = None

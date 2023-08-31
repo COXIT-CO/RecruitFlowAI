@@ -2,7 +2,8 @@
 import logging
 from slack_sdk import WebClient
 from slack_sdk.errors import SlackApiError
-from fastapi import APIRouter, Depends, Response, Request, BackgroundTasks
+from fastapi import APIRouter, Depends, Response, BackgroundTasks
+from fastapi.responses import PlainTextResponse
 from typing import Any
 from pydantic import ValidationError
 
@@ -48,9 +49,12 @@ def process_command(command: Command = Depends()):
     return Response(status_code=resp.status_code)
 
 @router.post("/message")
-async def process_message(request: Request, background_tasks: BackgroundTasks) -> Any:
-    request_body_json = await request.json()
-    background_tasks.add_task(handle_message_events, request_body_json)
+async def process_message(slack_event: SlackEventModel, background_tasks: BackgroundTasks) -> Any:
+    if slack_event.challenge:
+        # Special case for one-time verification handleshake
+        return PlainTextResponse(slack_event.challenge, headers={"Content-Type": "text/plain"})
+
+    background_tasks.add_task(handle_message_events, slack_event)
     return Response(status_code=200)
 
 def convert_slack_msgs_to_openai_msgs(slack_messages):
@@ -66,12 +70,9 @@ def convert_slack_msgs_to_openai_msgs(slack_messages):
         openai_messages.append({"role": role, "content": content})
     return openai_messages
 
-async def handle_message_events(request_body_json):
+async def handle_message_events(slack_message: SlackEventModel):
 
     try:
-        logger.debug("Message received: %s", request_body_json)
-        slack_message = SlackEventModel(request_body_json)
-
         # parse only user messages (indicated with client_msg_id field)
         # no need to react on bot messages
         if slack_message.event.client_msg_id:
@@ -103,6 +104,17 @@ async def handle_message_events(request_body_json):
             else:
                 logger.debug("No messages found in converstaion_replys response")
                 openai_content = "[Server Slack Api Error occured while parsing this thread messages]"
+
+            # FIX WANTED:
+            # This is the hack to not sent repetive responces to the thread.
+            # This may happen if Slack send message as retry:
+            # https://api.slack.com/apis/connections/events-api#retries
+            # This should be handled somehow better, at least to not process 
+            # such messages with openai.
+            for msg in slack_msgs:
+                if "text" in msg and (msg["text"] == openai_content):
+                    logger.debug("Returned earlier since the message is duplicate")
+                    return
 
             post_msg_resp = client.chat_postMessage(channel=slack_message.event.channel,
                 text="",

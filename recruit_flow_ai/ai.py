@@ -138,14 +138,13 @@ class RecruitFlowAI:
                 model=self.model,
                 messages=unique_msgs,
                 temperature=self.temperature,
-                #TODO invetigate if its possible to stream slack message
+                #TODO invetigate if its possible to stream slack message with Slack
                 stream=False
             )
 
             if "choices" in response:
                 response_msg = response["choices"][0]["message"]["content"]
             else:
-                # TODO: Add error handling for not success rsponces
                 logger.error("Response is not valid. Correct error handling should be added here")
         except openai.error.Timeout as e:
             #Handle timeout error, e.g. retry or log
