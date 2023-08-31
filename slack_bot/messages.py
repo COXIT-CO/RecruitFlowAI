@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from typing import List, Any
+from typing import List
 
 class SlackMessageEventModel(BaseModel):
     """ https://api.slack.com/events/message """
