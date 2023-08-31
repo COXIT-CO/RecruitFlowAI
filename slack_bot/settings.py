@@ -1,12 +1,14 @@
-"""Environment settings"""
 from pydantic import SecretStr
 from pydantic_settings import BaseSettings
 
 
 class Settings(BaseSettings):
+    """Environment variables settings"""
     access_token: SecretStr
     signing_secret: SecretStr
-    bot_data_path: str
+    config_data_dir: str = "./config_data/"
+    app_config_token: SecretStr = SecretStr("")
+    bot_app_id: str = ""
 
     class Config:
         env_file = ".env"
