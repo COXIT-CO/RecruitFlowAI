@@ -2,11 +2,15 @@
 RecruitFlowAI is a Slack bot with OpenAI integration aimed to assist COXIT's recruiters during the entire recruitment pipeline.
 
 ## Table of Contents
-- [Recruitment Pipeline in COXIT](#recruitment-pipeline-in-coxit)
-- [Project Description](#project-description)
-- [Slack Bot Deployment](#slack-bot-deployment)
-- [Slack Bot Commands](#slack-bot-commands)
-- [Project Structure](#project-structure)
+- [RecruitFlowAI](#recruitflowai)
+  - [Table of Contents](#table-of-contents)
+  - [Project Description](#project-description)
+  - [Actively Developing Functionality for Release 0.1.0.](#actively-developing-functionality-for-release-010)
+  - [Slack Bot](#slack-bot)
+    - [Setting Up the Bot](#setting-up-the-bot)
+    - [Deployment](#deployment)
+    - [Comamnds](#comamnds)
+  - [Project Structure](#project-structure)
 
 
 ## Project Description
@@ -25,29 +29,33 @@ For more details checkout the [project Notion](https://cotton-radar-ab3.notion.s
 - Search of candidates in internal database based on job requirements.
 - AI assistant integrated into Slack Bot.
 
-## Setting Up the Bot
-1. Go to [api.slack.com/apps](https://api.slack.com/apps), log into your workspace and click on Create an app
-2. Click on From scratch and then give it a name and select your workspace.
-3. Click on the Slash Commands and add all commands from Slack Bot Comamnds with Request URL set to `/process_command` edpoint, for example: https://coxit.co/process_command.
-4. Click on OAuth & Permissions to add Scopes: `channels:history`, `chat:write`, `commands`, `im:history`. These are the permissions the bot needs to write messages and send files into the Slack channels.
-5. Cliack on Event Subscriptions and Enable Events. Set the URL to send messages to `/message` endpoint, for example https://coxit.co/message. 
-6. Finally, scroll all the way up and click on Install to workspace, and Allow on the following screen. This should now show a screen with the Bot User OAuth Token visible. Take note of this token, since it’s the one we will be using to deploy the Bot.
+## Slack Bot
 
-## Slack Bot Deployment
+### Setting Up the Bot
+1. Go to [api.slack.com/apps](https://api.slack.com/apps), log into your workspace and click on Create an app.
+2. Generate all required api tokens and secrets: aceess token, signing secret, config token.
+3. Use these data and bot app id to populate env varaibles mentioned below. 
+
+### Deployment
 1. Create in base folder `.env` file and specify:
-   - `SLACK_ACCESS_TOKEN`
-   - `SLACK_SIGNING_SECRET`
-   - `SLACK_BOT_DATA_PATH`
-   - `OPENAI_API_KEY`
+   - `SLACK_ACCESS_TOKEN` - Bot User OAuth Token
+   - `SLACK_SIGNING_SECRET` - Signing Secret from the App credentials section 
+   - `SLACK_CONFIG_DATA_DIR` - the path to the directory that contains `manifest.json` and `chatcraft_templates.json` (optional for docker run)
+   - `SLACK_BOT_APP_ID` - App ID from the App credentials section 
+   - `SLACK_APP_CONFIG_TOKEN` - needed to run the bot using ngrok. It expires every 12 hours, do not forget to update ([reference](https://api.slack.com/authentication/config-tokens)). You will need to have ngrok configured -  check `.ngrok2/ngrok.ym` in you home dir, it should contain `authtoken` and `version` set to `2`. Read more details on https://dashboard.ngrok.com/get-started/setup.
+   - `OPENAI_API_KEY` - generate this key in your OpenAI account: https://platform.openai.com/account/api-keys.
 2. Build docker image `docker build -t recruit_flow_bot_image .`
 3. Run container `docker run -d --name recruit_flow_bot_cont  -p 3000:3000 --restart=always recruit_flow_bot_image`
 
 
-## Slack Bot Comamnds
+### Comamnds
 - `/generate_job_description` - pass all you know about the job requirements, client and interview procedure to generate job description.
 - `/create_social_media_post` - pass job description and generate post for social media
 - `/match_resumes` - pass job requirements and link to resumes to know which of candidates are more suitable
-- `/scan_resume` - pass link to PDF formatted resume and get lost of mistakes found, and suggested corrections 
+- `/scan_resume` - pass link to PDF formatted resume and get lost of mistakes found, and suggested corrections
+
+Note: all the commands above can take chatcraft url or hint text `Hint: ...` as text parameters, it will update the configuration for all users
+
 - `/save_resume <link>` - add resume to internal DB
 - `/search_db` - pass job description and receive list of candidates from internal database
 - `/assistant` - chat with OpenAI from recruiter persona
