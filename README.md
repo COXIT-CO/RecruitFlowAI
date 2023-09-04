@@ -7,6 +7,7 @@ RecruitFlowAI is a Slack bot with OpenAI integration aimed to assist COXIT's rec
   - [Project Description](#project-description)
   - [Actively Developing Functionality for Release 0.1.0.](#actively-developing-functionality-for-release-010)
   - [Slack Bot](#slack-bot)
+    - [Setting Up the Bot](#setting-up-the-bot)
     - [Deployment](#deployment)
     - [Comamnds](#comamnds)
   - [Project Structure](#project-structure)
@@ -30,6 +31,11 @@ For more details checkout the [project Notion](https://cotton-radar-ab3.notion.s
 
 ## Slack Bot
 
+### Setting Up the Bot
+1. Go to [api.slack.com/apps](https://api.slack.com/apps), log into your workspace and click on Create an app.
+2. Generate all required api tokens and secrets: aceess token, signing secret, config token.
+3. Use these data and bot app id to populate env varaibles mentioned below. 
+
 ### Deployment
 1. Create in base folder `.env` file and specify:
    - `SLACK_ACCESS_TOKEN` - Bot User OAuth Token
@@ -37,6 +43,7 @@ For more details checkout the [project Notion](https://cotton-radar-ab3.notion.s
    - `SLACK_CONFIG_DATA_DIR` - the path to the directory that contains `manifest.json` and `chatcraft_templates.json` (optional for docker run)
    - `SLACK_BOT_APP_ID` - App ID from the App credentials section 
    - `SLACK_APP_CONFIG_TOKEN` - needed to run the bot using ngrok. It expires every 12 hours, do not forget to update ([reference](https://api.slack.com/authentication/config-tokens)). You will need to have ngrok configured -  check `.ngrok2/ngrok.ym` in you home dir, it should contain `authtoken` and `version` set to `2`. Read more details on https://dashboard.ngrok.com/get-started/setup.
+   - `OPENAI_API_KEY` - generate this key in your OpenAI account: https://platform.openai.com/account/api-keys.
 
 2. Build docker image `docker build -t recruit_flow_bot_image .`
 3. Run container `docker run -d --name recruit_flow_bot_cont  -p 3000:3000 --restart=always recruit_flow_bot_image`
@@ -54,6 +61,8 @@ Note: all the commands above can take chatcraft url or hint text `Hint: ...` as 
 - `/search_db` - pass job description and receive list of candidates from internal database
 - `/assistant` - chat with OpenAI from recruiter persona
 
+Messaging with AI assistant - just ask any question in RecruitFlowAI home app and receive response in the thread! Conversation can be proceeded in the same chat and resumed any tiem later.
+
 Commands to be designed and added later:
 - `/brand_resume`
 - `/compose_feedback`
@@ -65,8 +74,7 @@ The project follows the following directory structure:
 .
 ├── Dockerfile
 ├── README.md
-├── ai_assistant
-│   └── openai
+├── recruit_flow_ai
 ├── requirements.txt
 ├── setup.py
 ├── slack_bot
@@ -75,7 +83,7 @@ The project follows the following directory structure:
 
 - `Dockerfile` - docker file to start Slack Bot
 - `README.md` - the main documentation file for the project.
-- `ai_assistant/openai` - openai integration module (api and logic to be imported in other modules)
+- `recruit_flow_ai` - OpenAI integration module
 - `requirements.txt` - test dependencies common for all modules.
 - `setup.py`  - currently setup to be used for CI purposes only.
 - `slack_bot` - RecruitFlowAI Bot  

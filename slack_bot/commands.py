@@ -3,8 +3,6 @@ import logging
 from pydantic import BaseModel, FilePath
 from slack_bot.utils import is_chatcraft_url
 
-logger = logging.getLogger(__name__)
-
 class ChatCraftReply(BaseModel):
     """ Data structure of the bot reply with chatcraft link"""
     title: str
@@ -26,10 +24,10 @@ class CmdReplyModel(BaseModel):
 
     def __init__(self, config_file: FilePath):
         try:
-            with open(config_file, "r") as f:
+            with open(config_file, "r", encoding="utf-8") as f:
                 super().__init__(config_file=config_file, **json.load(f))
         except OSError as e:
-            logger.critical("Error loading chatcraft config file: %s", e)
+            logging.critical("Error loading chatcraft config file: %s", e)
             raise e
 
     def get_replies(self):
@@ -39,11 +37,11 @@ class CmdReplyModel(BaseModel):
                 yield field[1].get_markdwn()
 
     def get_config(self)-> str:
-        with open(self.config_file, "r") as f:
+        with open(self.config_file, "r", encoding="utf-8") as f:
             return f.read()
 
     def save_config(self):
-        with open(self.config_file, "w") as file:
+        with open(self.config_file, "w", encoding="utf-8") as file:
             file.write(self.model_dump_json(indent=4, exclude=["config_file"]))
 
     def get_response_text(self, command_name: str, command_text: str) -> str:
