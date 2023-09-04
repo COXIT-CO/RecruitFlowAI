@@ -11,6 +11,7 @@ RecruitFlowAI is a Slack bot with OpenAI integration aimed to assist COXIT's rec
     - [Deployment](#deployment)
     - [Comamnds](#comamnds)
   - [Project Structure](#project-structure)
+  - [RecruitFlowAI Bot Demo](#recruitflowai-bot-demo)
 
 
 ## Project Description
@@ -88,3 +89,10 @@ The project follows the following directory structure:
 - `setup.py`  - currently setup to be used for CI purposes only.
 - `slack_bot` - RecruitFlowAI Bot  
 - `version.py` - project's main versioning file.
+
+## RecruitFlowAI Bot Demo
+![RecruitFlowAI Bot Home](https://github.com/COXIT-CO/RecruitFlowAI/blob/dev/media/RecruitFlowAI_Home.png)
+
+![About](https://github.com/COXIT-CO/RecruitFlowAI/blob/dev/media/RecruitFlowAI_Commands.png)
+![OpenAI Chat Thread Part 1](https://github.com/COXIT-CO/RecruitFlowAI/blob/dev/media/RecruitFlowAI_ChatThread_1.png)
+![OpenAI Chat Thread Part 1](https://github.com/COXIT-CO/RecruitFlowAI/blob/dev/media/RecruitFlowAI_ChatThread_2.png)
