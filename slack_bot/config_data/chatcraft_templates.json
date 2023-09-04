@@ -11,12 +11,12 @@
     },
     "match_resumes": {
         "title": "Resume Matching",
-        "url": "https://chatcraft.org/c/iramykytyn/VFhFhi8nffySnIpRghNQ0",
+        "url": "https://chatcraft.org/c/gbVNwmYC1o8uheyGTN31A",
         "hint": "pass job requirements and link to resumes or text of resumes to know which of resumes are more suitable for the job"
     },
     "scan_resume": {
         "title": "Resume Scan for Mistakes",
-        "url": "https://chatcraft.org/c/iramykytyn/c8i0CnulcfxJL7KStlprh",
+        "url": "https://chatcraft.org/c/iramykytyn/GMeZLCREJG0CGJlPArf71",
         "hint": "pass link to CV and get list of issues found with suggested corrections"
     }
 }
