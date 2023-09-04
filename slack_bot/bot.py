@@ -11,14 +11,6 @@ from slack_bot.utils import convert_slack_msgs_to_openai_msgs, AI_PROCESSING_NOT
 
 from recruit_flow_ai import RecruitFlowAI
 
-logFormatter = logging.Formatter("%(asctime)s [%(threadName)-12.12s] [%(levelname)-5.5s]  %(message)s")
-logger = logging.getLogger(__name__)
-logger.setLevel("DEBUG")
-
-consoleHandler = logging.StreamHandler()
-consoleHandler.setFormatter(logFormatter)
-logger.addHandler(consoleHandler)
-
 app = AsyncApp(
     token=env_settings.access_token.get_secret_value(),
     signing_secret=env_settings.signing_secret.get_secret_value()
@@ -33,7 +25,7 @@ async def chatcraft_reply(ack, respond, body):
     response_text = cmd_replies.get_response_text(command_name=body["command"][1:],
                                                   command_text=body["text"])
     await respond(response_text, unfurl_links=True)
-    logger.debug("Chatcraft command %s is handled", body["command"])
+    logging.debug("Chatcraft command %s is handled", body["command"])
 
 
 app.command("/generate_job_description")(chatcraft_reply)
@@ -53,16 +45,16 @@ async def update_home_tab(client, event):
         }
     )
     if resp["ok"]:
-        logger.info("Home tab published successfully")
+        logging.info("Home tab published successfully")
     else:
-        logger.error("Error publishing home tab: %s", resp["error"])
+        logging.error("Error publishing home tab: %s", resp["error"])
 
 # https://api.slack.com/events/message
 @app.event({"type": "message", "subtype": None})
 async def reply_in_thread(client, event):
     message_event = SlackMessageEventModel(**event)
     if message_event.is_from_client():
-        logger.debug("Client message received: message=%s", message_event.text)
+        logging.debug("Client message received: message=%s", message_event.text)
         thread_ts = message_event.thread_ts if message_event.thread_ts else message_event.ts
 
         # https://api.slack.com/methods/conversations.replies
@@ -72,7 +64,7 @@ async def reply_in_thread(client, event):
         )
 
         if conversation_replies.status_code != 200:
-            logger.error("conversation_replies request failed, status code=%s", conversation_replies.status_code)
+            logging.error("conversation_replies request failed, status code=%s", conversation_replies.status_code)
 
         # send thsi message just to improve user experience,
         # so if it takes a while to generate response user will know that request i sprocessing
@@ -89,9 +81,9 @@ async def reply_in_thread(client, event):
             slack_msgs = conversation_replies["messages"]
             openai_msgs = convert_slack_msgs_to_openai_msgs(slack_msgs)
             openai_content = ai.generate_response(openai_msgs=openai_msgs)
-            logger.debug("OpenAI response received: %s", openai_content)
+            logging.debug("OpenAI response received: %s", openai_content)
         else:
-            logger.debug("No messages found in converstaion_replys response")
+            logging.debug("No messages found in converstaion_replys response")
             openai_content = "[Server Slack Api Error occured while parsing this thread messages]"
 
         post_msg_resp = await client.chat_postMessage(channel=message_event.channel,
@@ -100,7 +92,7 @@ async def reply_in_thread(client, event):
         )
 
         if post_msg_resp.status_code != 200:
-            logger.error("chat_postMessage request failed, status code=%s", post_msg_resp.status_code)
+            logging.error("chat_postMessage request failed, status code=%s", post_msg_resp.status_code)
     else:
-        logger.debug("Not a user message. Should be Bot message.")
+        logging.debug("Not a user message. Should be Bot message.")
 

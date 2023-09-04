@@ -16,7 +16,7 @@ Example:
     ])
 
     # Print the response
-    logger.error(response)
+    logging.error(response)
 
 """
 
@@ -30,14 +30,6 @@ from recruit_flow_ai.settings import env_settings
 
 PROMPTS_CONFIG_PATH = "recruit_flow_ai/prompts_config.json"
 ISSUES_REPORT_MSG = "Report this to #recruitflowai_issues channel."
-
-logFormatter = logging.Formatter("%(asctime)s [%(threadName)-12.12s] [%(levelname)-5.5s]  %(message)s")
-logger = logging.getLogger(__name__)
-logger.setLevel("DEBUG")
-
-consoleHandler = logging.StreamHandler()
-consoleHandler.setFormatter(logFormatter)
-logger.addHandler(consoleHandler)
 
 class RecruitFlowAI:
     """
@@ -85,7 +77,7 @@ class RecruitFlowAI:
         config: ConfigModel = parse_config(PROMPTS_CONFIG_PATH)
         if config.temperature:
             if self.is_valid_temperature(temperature=config.temperature):
-                logger.error("Temperature is not valid in config. Default will be used.")
+                logging.error("Temperature is not valid in config. Default will be used.")
             else:
                 self.temperature = config.temperature
 
@@ -132,35 +124,35 @@ class RecruitFlowAI:
             if "choices" in response:
                 response_msg = response["choices"][0]["message"]["content"]
             else:
-                logger.error("Response is not valid. Correct error handling should be added here")
+                logging.error("Response is not valid. Correct error handling should be added here")
         except openai.error.Timeout as e:
             #Handle timeout error, e.g. retry or log
             error_msg = "OpenAI API request timed out"
-            logger.error("%s: ", error_msg, exc_info=e)
+            logging.error("%s: ", error_msg, exc_info=e)
         except openai.error.APIError as e:
             #Handle API error, e.g. retry or log
             error_msg = "OpenAI API returned an API Error"
-            logger.error("%s: ", error_msg, exc_info=e)
+            logging.error("%s: ", error_msg, exc_info=e)
         except openai.error.APIConnectionError as e:
             #Handle connection error, e.g. check network or log
             error_msg = "OpenAI API request failed to connect"
-            logger.error("%s: ", error_msg, exc_info=e)
+            logging.error("%s: ", error_msg, exc_info=e)
         except openai.error.InvalidRequestError as e:
             #Handle invalid request error, e.g. validate parameters or log
             error_msg = "OpenAI API request was invalid"
-            logger.error("%s: ", error_msg, exc_info=e)
+            logging.error("%s: ", error_msg, exc_info=e)
         except openai.error.AuthenticationError as e:
             #Handle authentication error, e.g. check credentials or log
             error_msg = "OpenAI API request was not authorized"
-            logger.error("%s: ", error_msg, exc_info=e)
+            logging.error("%s: ", error_msg, exc_info=e)
         except openai.error.PermissionError as e:
             #Handle permission error, e.g. check scope or log
             error_msg = "OpenAI API request was not permitted"
-            logger.error("%s: ", error_msg, exc_info=e)
+            logging.error("%s: ", error_msg, exc_info=e)
         except openai.error.RateLimitError as e:
             #Handle rate limit error, e.g. wait or log
             error_msg = "OpenAI API request exceeded rate limit"
-            logger.error("%s: ", error_msg, exc_info=e)
+            logging.error("%s: ", error_msg, exc_info=e)
 
         if response_msg == "":
             response_msg = error_msg + "." + ISSUES_REPORT_MSG
