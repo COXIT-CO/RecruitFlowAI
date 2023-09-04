@@ -53,7 +53,7 @@ class CmdReplyModel(BaseModel):
             if is_chatcraft_url(command_text):
                 field_name = "url"
                 old_value = command_reply_model.url
-                command_reply_model.url = command_reply_model.text
+                command_reply_model.url = command_text
             elif "hint" in command_text[:10].lower():
                 field_name = "hint"
                 old_value = command_reply_model.hint
