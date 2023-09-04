@@ -24,11 +24,9 @@ import openai
 
 import logging
 import re   # used for api key format validation
-import os   # used to read OPANAI_API_KEY env variable
-from dotenv import load_dotenv
-from pathlib import Path
 
 from recruit_flow_ai.parse_config import parse_config, ConfigModel
+from recruit_flow_ai.settings import env_settings
 
 PROMPTS_CONFIG_PATH = "recruit_flow_ai/prompts_config.json"
 ISSUES_REPORT_MSG = "Report this to #recruitflowai_issues channel."
@@ -74,12 +72,7 @@ class RecruitFlowAI:
             ValueError: If the API key is not provided or if it is not valid.
         """
         if api_key == "":
-            load_dotenv(Path(".env"))
-            self.api_key = os.getenv("OPENAI_API_KEY")
-            if self.api_key == "":
-                raise ValueError("OPENAI_API_KEY is not provided. "/
-                                 "Please pass it as an argumant to constructor or add it to .env file")
-
+            self.api_key = env_settings.api_key.get_secret_value()
         else:
             self.api_key = api_key
 
