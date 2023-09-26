@@ -9,7 +9,7 @@ from slack_bot.bot_home_view import get_home_blocks
 from slack_bot.messages import SlackMessageEventModel
 from slack_bot.utils import convert_slack_msgs_to_openai_msgs, AI_PROCESSING_NOTIFICATION_MSG
 
-from recruit_flow_ai import RecruitFlowAI
+from recruit_flow_ai import RecruitFlowAI, ResumeHandler
 
 app = AsyncApp(
     token=env_settings.access_token.get_secret_value(),
@@ -28,11 +28,20 @@ async def chatcraft_reply(ack, respond, body):
     logging.debug("Chatcraft command %s is handled", body["command"])
 
 
+async def save_resume_reply(ack, respond, body):
+    """General command handler for chatcraft replies"""
+    await ack()
+
+    resume_handler = ResumeHandler()
+    response_text = resume_handler.download_pdf
+    await respond(response_text, unfurl_links=True)
+    logging.debug("save_resume command %s is handled", body["command"])
+
 app.command("/generate_job_description")(chatcraft_reply)
 app.command("/create_social_media_post")(chatcraft_reply)
 app.command("/match_resumes")(chatcraft_reply)
 app.command("/scan_resume")(chatcraft_reply)
-
+app.command("/save_resume")()
 
 @app.event("app_home_opened")
 async def update_home_tab(client, event):

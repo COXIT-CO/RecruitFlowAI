@@ -58,7 +58,7 @@ For more details checkout the [project Notion](https://cotton-radar-ab3.notion.s
 
 Note: all the commands above can take chatcraft url or hint text `Hint: ...` as text parameters, it will update the configuration for all users
 
-- `/save_resume <link>` - add resume to internal DB
+- `/save_resume <link>` - add resume to internal S3 storage and return the link
 - `/search_db` - pass job description and receive list of candidates from internal database
 - `/assistant` - chat with OpenAI from recruiter persona
 

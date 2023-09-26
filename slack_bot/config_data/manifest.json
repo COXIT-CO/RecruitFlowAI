@@ -38,6 +38,12 @@
                 "url": "{$bot_base_url}/slack/events",
                 "description": "Create Job Description",
                 "should_escape": false
+            },
+            {
+                "command": "/save_resume",
+                "url": "{$bot_base_url}/slack/events",
+                "description": "Save resume to internal S3 storage and return the link",
+                "should_escape": false
             }
         ]
     },
