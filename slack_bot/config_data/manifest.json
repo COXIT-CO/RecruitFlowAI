@@ -56,7 +56,8 @@
                 "im:write",
                 "channels:history",
                 "im:history",
-                "commands"
+                "commands",
+                "remote_files:share"
             ]
         }
     },

@@ -13,10 +13,19 @@ class ResumeHandler:
     def __init__(self):
         self.s3 = s3()
 
-    def download_pdf(self, url):
+    def download_pdf(self, url, token=None):
         try:
-            response = requests.get(url)
+            headers = {}
+            if token:
+                headers['Authorization'] = f'Bearer {token}'
+
+            response = requests.get(url, headers=headers, verify=False)
             response.raise_for_status()
+
+            # Check if the request was successful
+            if response.status_code != 200:
+                logging.error(f"Error downloading PDF: Status code {response.status_code}")
+                return None
 
             # Extract the file name from the URL
             filename = os.path.basename(url)
@@ -49,9 +58,9 @@ class ResumeHandler:
         except Exception as e:
             logging.error(f"Error uploading to Minio: {e}")
     
-    def save_resume(self, url):
+    def save_resume(self, url, token=None):
         # Download the PDF
-        pdf_file = self.download_pdf(url)
+        pdf_file = self.download_pdf(url, token)
         if pdf_file is None:
             return None
 

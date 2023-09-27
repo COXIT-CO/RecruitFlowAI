@@ -33,16 +33,7 @@ import os
 from io import BytesIO
 from minio import Minio
 from pydantic import SecretStr
-from pydantic_settings import BaseSettings
-
-class MinioSettings(BaseSettings):
-    endpoint: str
-    access_key: SecretStr
-    secret_key: SecretStr
-    bucket: str
-
-    class Config:
-        env_prefix = "MINIO_"
+from recruit_flow_ai.settings import minio_settings
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -51,7 +42,7 @@ class S3StorageManager:
     def __init__(self):
         logging.basicConfig(level=logging.INFO)
         try:
-            self.minio_settings = MinioSettings()
+            self.minio_settings = minio_settings
             self.client = Minio(
                 endpoint=self.minio_settings.endpoint,
                 access_key=self.minio_settings.access_key.get_secret_value(),
@@ -88,11 +79,11 @@ class S3StorageManager:
         
     def check_and_set_bucket_policy(self, bucket_name):
         try:
-            policy = self.minio_client.get_bucket_policy(bucket_name)
+            policy = self.client.get_bucket_policy(bucket_name)
             logging.info(f"Current policy: {policy}")
             
             if policy != 'READ_WRITE':
-                self.minio_client.set_bucket_policy(bucket_name, 'READ_WRITE')
+                self.client.set_bucket_policy(bucket_name, 'READ_WRITE')
                 logging.warn("Bucket policy set to 'READ_WRITE'")
         except Exception as e:
             logging.error(f"Error setting bucket policy: {e}")
