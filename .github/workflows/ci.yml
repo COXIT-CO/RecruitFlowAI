@@ -75,6 +75,10 @@ jobs:
           SLACK_SIGNING_SECRET: ${{ secrets.SLACK_SIGNING_SECRET }}
           SLACK_BOT_DATA_PATH: ${{ secrets.SLACK_BOT_DATA_PATH }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          MINIO_ENDPOINT:  ${{ secrets.MINIO_ENDPOINT }}
+          MINIO_ACCESS_KEY: ${{ secrets.MINIO_ACCESS_KEY }}
+          MINIO_SECRET_KEY: ${{ secrets.MINIO_SECRET_KEY }}
+          MINIO_BUCKET: ${{ secrets.MINIO_BUCKET }}
         run: |
           source .venv/bin/activate
           python -m pytest --cov=recruit_flow_ai --cov=slack_bot  --cov-config=.coveragerc
