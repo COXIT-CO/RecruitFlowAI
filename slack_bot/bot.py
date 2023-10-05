@@ -35,22 +35,21 @@ async def save_resume_reply(ack, respond, body):
     """General command handler for chatcraft replies"""
     await ack()
 
-    response_text = command_text=body["text"]
-    
+    response_text = body["text"]
+
     # Parse the URL
     url = urllib.parse.urlparse(response_text)
-    
+
     # Check if the URL is valid
     if not all([url.scheme, url.netloc]):
         response_text = "Invalid URL. Please provide a valid URL."
     else:
         # Check if the file is a PDF
         _, file_extension = os.path.splitext(url.path)
-        if file_extension.lower() != '.pdf':
+        if file_extension.lower() != ".pdf":
             response_text = "Invalid file type. Please provide a link to a PDF file."
         else:
             response_text = resume_handler.save_resume(url.geturl())
-    
     await respond(response_text, unfurl_links=True)
     logging.debug("save_resume command %s is handled", body["command"])
 
@@ -80,23 +79,23 @@ async def update_home_tab(client, event):
 @app.event(
     event={"type": "message", "subtype": re.compile("(me_message)|(file_share)")}
 )
-async def reply_in_thread(client, event):
+async def reply_in_thread_on_file_share(client, event):
     message_event = SlackFileSharedEventModel(**event)
     if message_event.is_from_client():
         for file in message_event.files:
             response_text = None
             if "filetype" in file and file["filetype"] != "pdf":
-                logging.debug(f"File type is not supported!")                
+                logging.debug("File type is not supported!")
                 response_text = "Invalid file type. Only PDF type is currenty supported."
             elif "url_private_download" in file:
                 url = file["url_private_download"]
-                logging.debug(f"Slack file url: {url}")
+                logging.debug("Slack file url: {url}")
                 s3_url = resume_handler.save_resume(url, env_settings.access_token.get_secret_value())
                 response_text = s3_url
             else:
-                logging.error(f"Not valid file")
+                logging.error("Not valid file")
                 return
-            
+
             if response_text:
                 thread_ts = message_event.thread_ts if message_event.thread_ts else message_event.ts
                 post_msg_resp = await client.chat_postMessage(channel=message_event.channel,
@@ -107,7 +106,7 @@ async def reply_in_thread(client, event):
                     logging.error("chat_postMessage request failed, status code=%s", post_msg_resp.status_code)
     else:
         logging.debug("Not a user message. Should be Bot message.")
-    
+
 # https://api.slack.com/events/message
 @app.event({"type": "message", "subtype": None})
 async def reply_in_thread(client, event):
@@ -154,4 +153,3 @@ async def reply_in_thread(client, event):
             logging.error("chat_postMessage request failed, status code=%s", post_msg_resp.status_code)
     else:
         logging.debug("Not a user message. Should be Bot message.")
-

@@ -1,3 +1,12 @@
+"""
+This module defines the data models for Slack events, specifically message events
+and file shared events. These models are used to parse and validate the data 
+received from Slack's Event API.
+
+Classes:
+    SlackMessageEventModel: Data model for message events from Slack.
+    SlackFileSharedEventModel: Data model for file shared events from Slack.
+"""
 from pydantic import BaseModel
 from typing import List
 
@@ -21,6 +30,7 @@ class SlackMessageEventModel(BaseModel):
 
 
 class SlackFileSharedEventModel(BaseModel):
+    """ https://api.slack.com/events/message/file_share """
     type: str
     text: str
     files: List
