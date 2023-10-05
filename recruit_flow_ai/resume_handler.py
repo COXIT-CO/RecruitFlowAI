@@ -10,6 +10,9 @@ import logging
 from recruit_flow_ai.s3client import S3StorageManager as s3
 
 class ResumeHandler:
+    """
+    A class for handling PDF files.
+    """
     def __init__(self):
         self.s3 = s3()
 
@@ -17,26 +20,24 @@ class ResumeHandler:
         try:
             headers = {}
             if token:
-                headers['Authorization'] = f'Bearer {token}'
+                headers["Authorization"] = f"Bearer {token}"
 
-            response = requests.get(url, headers=headers, verify=False)
+            response = requests.get(url, headers=headers, verify=False, timeout=5)
             response.raise_for_status()
 
-            # Check if the request was successful
             if response.status_code != 200:
-                logging.error(f"Error downloading PDF: Status code {response.status_code}")
+                logging.error("Error downloading PDF: Status code %s", response.status_code)
                 return None
 
-            # Extract the file name from the URL
             filename = os.path.basename(url)
 
-            with open(filename, 'wb') as f:
+            with open(filename, "wb") as f:
                 f.write(response.content)
 
-            logging.info(f"Downloaded PDF and saved as {filename}")
+            logging.info("Downloaded PDF and saved as %s", filename)
             return filename
         except requests.exceptions.RequestException as e:
-            logging.error(f"Error downloading PDF: {e}")
+            logging.error("Error downloading PDF: %s", e)
             return None
 
     def parse_pdf(self, pdf_file):
@@ -44,36 +45,31 @@ class ResumeHandler:
 
     def upload_pdf_to_minio(self, pdf_file_path):
         try:
-            # Check if file exists
             if not os.path.exists(pdf_file_path):
-                logging.error(f"File {pdf_file_path} does not exist.")
+                logging.error("File %s does not exist.", pdf_file_path)
                 return None
 
-            # Check if file is a PDF
-            if not pdf_file_path.endswith('.pdf'):
-                logging.error(f"File {pdf_file_path} is not a PDF.")
+            if not pdf_file_path.endswith(".pdf"):
+                logging.error("File %s is not a PDF.", pdf_file_path)
                 return None
 
             return self.s3.upload_pdf(pdf_file_path)
-        except Exception as e:
-            logging.error(f"Error uploading to Minio: {e}")
-    
+        except requests.exceptions.RequestException as e:
+            logging.error("Error uploading to Minio: %s", e)
+
     def save_resume(self, url, token=None):
-        # Download the PDF
         pdf_file = self.download_pdf(url, token)
         if pdf_file is None:
             return None
 
-        # Upload the PDF to Minio
         minio_url = self.upload_pdf_to_minio(pdf_file)
         if minio_url is None:
             return None
 
-        # Delete the temporary file
         try:
             os.remove(pdf_file)
-            logging.info(f"Deleted temporary file {pdf_file}")
-        except Exception as e:
-            logging.error(f"Error deleting temporary file {pdf_file}: {e}")
+            logging.info("Deleted temporary file %s", pdf_file)
+        except OSError as e:
+            logging.error("Error deleting temporary file %s: %s", pdf_file, e)
 
         return minio_url

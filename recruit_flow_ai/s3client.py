@@ -31,14 +31,16 @@ Exceptions:
 import logging
 import os
 from io import BytesIO
-from minio import Minio
-from pydantic import SecretStr
+from minio import Minio, S3Error
 from recruit_flow_ai.settings import minio_settings
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 class S3StorageManager:
+    """
+    A class for managing storage on S3-compatible services.
+    """
     def __init__(self):
         logging.basicConfig(level=logging.INFO)
         try:
@@ -51,41 +53,39 @@ class S3StorageManager:
             )
 
             if not self.client.bucket_exists(self.minio_settings.bucket):
-                raise ValueError(f"Bucket {self.minio_settings.bucket} does not exist.")
+                raise ValueError("Bucket {self.minio_settings.bucket} does not exist.")
 
             self.check_and_set_bucket_policy(self.minio_settings.bucket)
         except Exception as e:
-            logging.error(f"Error initializing S3StorageManager: {e}")
+            logging.error("Error initializing S3StorageManager: %s", e)
             raise e
 
     def upload_pdf(self, pdf_file_path):
         try:
-            with open(pdf_file_path, 'rb') as f:
+            with open(pdf_file_path, "rb") as f:
                 data = BytesIO(f.read())
                 length = data.getbuffer().nbytes
                 object_name = os.path.basename(pdf_file_path)
                 self.client.put_object(bucket_name=self.minio_settings.bucket,
-                                             object_name=object_name, 
-                                             data=data, 
+                                             object_name=object_name,
+                                             data=data,
                                              length=length,
-                                             content_type='application/pdf')
-            logging.info(f"Uploaded {object_name} to {self.minio_settings.bucket}")
+                                             content_type="application/pdf")
+            logging.info("Uploaded %s to %s", object_name, self.minio_settings.bucket)
             return f"https://{self.minio_settings.endpoint}/{self.minio_settings.bucket}/{object_name}"
-        except Exception as e:
-            logging.error(f"Error uploading to Minio: {e}")
+        except S3Error as e:
+            logging.error("Error uploading to Minio: %s", e)
 
     def bucket_exists(self, bucket_name):
         return self.client.bucket_exists(bucket_name)
-        
+
     def check_and_set_bucket_policy(self, bucket_name):
         try:
             policy = self.client.get_bucket_policy(bucket_name)
-            logging.info(f"Current policy: {policy}")
-            
-            if policy != 'READ_WRITE':
-                self.client.set_bucket_policy(bucket_name, 'READ_WRITE')
-                logging.warn("Bucket policy set to 'READ_WRITE'")
-        except Exception as e:
-            logging.error(f"Error setting bucket policy: {e}")
+            logging.info("Current policy: %s", policy)
 
- 
+            if policy != "READ_WRITE":
+                self.client.set_bucket_policy(bucket_name, "READ_WRITE")
+                logging.warning("Bucket policy set to READ_WRITE")
+        except S3Error as e:
+            logging.error("Error setting bucket policy: %s", e)
