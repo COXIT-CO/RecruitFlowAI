@@ -69,7 +69,7 @@ class TestResumeMockedHandler(unittest.TestCase):
         self.assertEqual(result, 'minio_url')
 
         # Check that the mock methods were called correctly
-        mock_download.assert_called_once_with('url')
+        mock_download.assert_called_once_with('url', None)
         mock_upload.assert_called_once_with('test.pdf')
         mock_remove.assert_called_once_with('test.pdf')
 
