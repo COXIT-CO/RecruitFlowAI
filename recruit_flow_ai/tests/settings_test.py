@@ -1,6 +1,6 @@
 import unittest
 from unittest.mock import patch
-from recruit_flow_ai.settings import Settings  # replace 'your_module' with the name of your module
+from recruit_flow_ai.settings import OpenaiSettings
 
 class TestSettings(unittest.TestCase):
     """
@@ -9,12 +9,12 @@ class TestSettings(unittest.TestCase):
     """
     @patch.dict('os.environ', {'OPENAI_API_KEY': 'test_key'})
     def test_api_key(self):
-        settings = Settings()
+        settings = OpenaiSettings()
         self.assertEqual(settings.api_key.get_secret_value(), 'test_key')
 
     @patch.dict('os.environ', {'OPENAI_API_KEY': 'test_key'})
     def test_config(self):
-        settings = Settings()
+        settings = OpenaiSettings()
         self.assertEqual(settings.Config.env_file, '.env')
         self.assertEqual(settings.Config.env_prefix, 'OPENAI_')
         self.assertEqual(settings.Config.case_sensitive, False)

@@ -11,10 +11,9 @@ For more information, refer to the project documentation at:
 https://github.com/COXIT-CO/CVScanAI
 """
 from setuptools import setup
-from distutils.util import convert_path
 
 main_ns = {}
-ver_path = convert_path("./version.py")
+ver_path = "./version.py"
 with open(ver_path, encoding="utf-8") as ver_file:
     # pylint: disable-next=exec-used
     exec(ver_file.read(), main_ns)
