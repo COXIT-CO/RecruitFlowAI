@@ -39,12 +39,17 @@ For more details checkout the [project Notion](https://cotton-radar-ab3.notion.s
 
 ### Deployment
 1. Create in base folder `.env` file and specify:
-   - `SLACK_ACCESS_TOKEN` - Bot User OAuth Token
-   - `SLACK_SIGNING_SECRET` - Signing Secret from the App credentials section 
-   - `SLACK_CONFIG_DATA_DIR` - the path to the directory that contains `manifest.json` and `chatcraft_templates.json` (optional for docker run)
-   - `SLACK_BOT_APP_ID` - App ID from the App credentials section 
+   - `SLACK_ACCESS_TOKEN` - Bot User OAuth Token.
+   - `SLACK_SIGNING_SECRET` - Signing Secret from the App credentials section.
+   - `SLACK_CONFIG_DATA_DIR` - the path to the directory that contains `manifest.json` and `chatcraft_templates.json` (optional for docker run).
+   - `SLACK_BOT_APP_ID` - App ID from the App credentials section.
    - `SLACK_APP_CONFIG_TOKEN` - needed to run the bot using ngrok. It expires every 12 hours, do not forget to update ([reference](https://api.slack.com/authentication/config-tokens)). You will need to have ngrok configured -  check `.ngrok2/ngrok.ym` in you home dir, it should contain `authtoken` and `version` set to `2`. Read more details on https://dashboard.ngrok.com/get-started/setup.
-   - `OPENAI_API_KEY` - generate this key in your OpenAI account: https://platform.openai.com/account/api-keys.
+   - `MINIO_ENDPOINT` - specifies the endpoint or URL where your Minio server is hosted.
+   - `MINIO_ACCESS_KEY` - represents the access key used for authentication when accessing your Minio server.
+   - `MINIO_SECRET_KEY` - secret key paired with the access key for authentication purposes.
+   - `MINIO_BUCKET` - A bucket in Minio is a logical container for storing objects (files). This key specifies the name of the bucket where you want to store or retrieve data.
+     
+#### You can find additional information about tokens using the following links: [Slack API Access tokens](https://min.io/docs/minio/container/index.html) and [Minio object storage setup](https://min.io/docs/minio/container/index.html)
 
 2. Build docker image `docker build -t recruit_flow_bot_image .`
 3. Run container `docker run -d --name recruit_flow_bot_cont  -p 3000:3000 --restart=always recruit_flow_bot_image`
