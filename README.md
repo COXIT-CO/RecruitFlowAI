@@ -44,6 +44,7 @@ For more details checkout the [project Notion](https://cotton-radar-ab3.notion.s
    - `SLACK_CONFIG_DATA_DIR` - the path to the directory that contains `manifest.json` and `chatcraft_templates.json` (optional for docker run).
    - `SLACK_BOT_APP_ID` - App ID from the App credentials section.
    - `SLACK_APP_CONFIG_TOKEN` - needed to run the bot using ngrok. It expires every 12 hours, do not forget to update ([reference](https://api.slack.com/authentication/config-tokens)). You will need to have ngrok configured -  check `.ngrok2/ngrok.ym` in you home dir, it should contain `authtoken` and `version` set to `2`. Read more details on https://dashboard.ngrok.com/get-started/setup.
+   - `OPENAI_API_KEY` - generate this key in your OpenAI account: https://platform.openai.com/account/api-keys.
    - `MINIO_ENDPOINT` - specifies the endpoint or URL where your Minio server is hosted.
    - `MINIO_ACCESS_KEY` - represents the access key used for authentication when accessing your Minio server.
    - `MINIO_SECRET_KEY` - secret key paired with the access key for authentication purposes.
