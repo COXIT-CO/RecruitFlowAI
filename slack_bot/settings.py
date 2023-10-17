@@ -9,6 +9,7 @@ class Settings(BaseSettings):
     config_data_dir: str = "./config_data/"
     app_config_token: SecretStr = SecretStr("")
     bot_app_id: str = ""
+    refresh_token: SecretStr = SecretStr("")
 
     class Config:
         env_file = ".env"
