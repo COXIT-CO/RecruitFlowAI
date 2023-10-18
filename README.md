@@ -50,7 +50,7 @@ For more details checkout the [project Notion](https://cotton-radar-ab3.notion.s
    - `MINIO_SECRET_KEY` - secret key paired with the access key for authentication purposes.
    - `MINIO_BUCKET` - A bucket in Minio is a logical container for storing objects (files). This key specifies the name of the bucket where you want to store or retrieve data.
      
-#### You can find additional information about tokens using the following links: [Slack API Access tokens](https://min.io/docs/minio/container/index.html) and [Minio object storage setup](https://min.io/docs/minio/container/index.html)
+#### You can find additional information about tokens using the following links: [Slack API Access tokens](https://api.slack.com/authentication/token-types) and [Minio object storage setup](https://min.io/docs/minio/container/index.html)
 
 2. Build docker image `docker build -t recruit_flow_bot_image .`
 3. Run container `docker run -d --name recruit_flow_bot_cont  -p 3000:3000 --restart=always recruit_flow_bot_image`
