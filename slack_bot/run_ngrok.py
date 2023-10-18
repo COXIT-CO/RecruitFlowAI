@@ -6,7 +6,7 @@ from pyngrok import ngrok, conf
 from pyngrok.exception import PyngrokNgrokError
 from slack_bolt import App
 from slack_bot.settings import env_settings
-from .token_rotation import rotate_token
+from slack_bot.token_rotation import rotate_token
 
 
 rotate_token()

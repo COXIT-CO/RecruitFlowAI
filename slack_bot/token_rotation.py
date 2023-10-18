@@ -1,7 +1,10 @@
+"""
+This module contains implementation of app config token rotation logic
+"""
+
 import logging
 import httpx
 from dotenv import find_dotenv, load_dotenv, set_key, dotenv_values
-from aiocron import crontab
 from pydantic import SecretStr
 from pydantic_core import ValidationError
 
@@ -9,10 +12,10 @@ dotenv_path = find_dotenv()
 load_dotenv(dotenv_path)
 
 try:
-    from .settings import env_settings
+    from slack_bot.settings import env_settings
 except ValidationError:
     env_values = dotenv_values(dotenv_path)
-    from .settings import Settings
+    from slack_bot.settings import Settings
     env_settings = Settings(
             access_token=SecretStr(env_values["SLACK_ACCESS_TOKEN"]),
             signing_secret=SecretStr(env_values["SLACK_SIGNING_SECRET"]),
@@ -66,23 +69,5 @@ def rotate_token(settings=env_settings) -> tuple:
 
         return new_config_token, new_refresh_token
 
-    logging.error("Slack Config Token Refreshment Failed; Full response: " + response.text)
+    logging.error("Slack Config Token Refreshment Failed; Full response: %s", response.text)
     return ()
-
-
-@crontab("* */3 * * *")
-def schedule_token_rotation():
-    """
-    Schedule token rotation (set to once in 3 hours with crontab decorator) and output if rotation was successful
-    """
-    result = rotate_token()
-    if len(result) == 2:
-        logging.info("Config App Token was successfully rotated!")
-
-
-def setup_token_rotation():
-    """
-    Setting up token rotation with scheduling and indicating process start
-    """
-    logging.info("Token rotation started!")
-    schedule_token_rotation.start()
