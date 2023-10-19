@@ -10,6 +10,9 @@ logging.basicConfig(
     datefmt="%m/%d/%Y %I:%M:%S %p"
 )
 
+logging.getLogger("httpx").setLevel(logging.WARNING)
+logging.getLogger("httpcore").setLevel(logging.WARNING)
+
 setup_ngrok()
 fast_app = FastAPI()
 

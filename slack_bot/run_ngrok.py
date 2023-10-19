@@ -6,6 +6,10 @@ from pyngrok import ngrok, conf
 from pyngrok.exception import PyngrokNgrokError
 from slack_bolt import App
 from slack_bot.settings import env_settings
+from slack_bot.token_rotation import rotate_token
+
+
+rotate_token()
 
 app = App(
     token=env_settings.app_config_token.get_secret_value()

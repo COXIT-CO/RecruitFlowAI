@@ -22,3 +22,5 @@ pytest-cov==4.1.0
 coverage==7.3.0
 pyngrok==6.0.0
 minio==7.1.16
+python-dotenv~=1.0.0
+httpx~=0.25.0
