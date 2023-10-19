@@ -4,17 +4,15 @@ This module contains implementation of app config token rotation logic
 
 import logging
 import httpx
-from dotenv import find_dotenv, load_dotenv, set_key, dotenv_values
+from dotenv import set_key, dotenv_values
 from pydantic import SecretStr
 from pydantic_core import ValidationError
-
-dotenv_path = find_dotenv()
-load_dotenv(dotenv_path)
 
 try:
     from slack_bot.settings import env_settings
 except ValidationError:
-    env_values = dotenv_values(dotenv_path)
+    logging.info("From .env imported")
+    env_values = dotenv_values(".env")
     from slack_bot.settings import Settings
     env_settings = Settings(
             access_token=SecretStr(env_values["SLACK_ACCESS_TOKEN"]),
@@ -59,14 +57,15 @@ def rotate_token(settings=env_settings) -> tuple:
         new_refresh_token = response_data["refresh_token"]
         new_config_token = response_data["token"]
 
-        set_key(dotenv_path=dotenv_path, key_to_set="SLACK_REFRESH_TOKEN",
+        set_key(dotenv_path=".env", key_to_set="SLACK_REFRESH_TOKEN",
                 value_to_set=new_refresh_token)
-        set_key(dotenv_path=dotenv_path, key_to_set="SLACK_APP_CONFIG_TOKEN",
+        set_key(dotenv_path=".env", key_to_set="SLACK_APP_CONFIG_TOKEN",
                 value_to_set=new_config_token)
 
         settings.refresh_token = SecretStr(new_refresh_token)
         settings.app_config_token = SecretStr(new_config_token)
 
+        logging.info("Config app token was successfully rotated!")
         return new_config_token, new_refresh_token
 
     logging.error("Slack Config Token Refreshment Failed; Full response: %s", response.text)

@@ -44,7 +44,7 @@ For more details checkout the [project Notion](https://cotton-radar-ab3.notion.s
    - `SLACK_CONFIG_DATA_DIR` - the path to the directory that contains `manifest.json` and `chatcraft_templates.json` (optional for docker run)
    - `SLACK_BOT_APP_ID` - App ID from the App credentials section 
    - `SLACK_APP_CONFIG_TOKEN` - needed to run the bot using ngrok. It expires every 12 hours, do not forget to update ([reference](https://api.slack.com/authentication/config-tokens)). You will need to have ngrok configured -  check `.ngrok2/ngrok.ym` in you home dir, it should contain `authtoken` and `version` set to `2`. Read more details on https://dashboard.ngrok.com/get-started/setup.
-   - `SLACK_REFRESH_TOKEN` - refresh token for app config token rotation if the token was refreshed at least once with request/api. **Do not forget to create after first launch!** Obtain it from **Your Apps**, same as the app config token: https://api.slack.com/apps.
+   - `SLACK_REFRESH_TOKEN` - refresh token for app config token rotation if the token was refreshed at least once with request/api. Obtain it from **Your Apps**, same as the app config token: https://api.slack.com/apps.
    - `OPENAI_API_KEY` - generate this key in your OpenAI account: https://platform.openai.com/account/api-keys.
 
 2. Build docker image `docker build -t recruit_flow_bot_image .`
