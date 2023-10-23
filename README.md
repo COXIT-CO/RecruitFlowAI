@@ -63,6 +63,8 @@ For more details checkout the [project Notion](https://cotton-radar-ab3.notion.s
 
    #### You can find additional information about tokens [here](https://api.slack.com/authentication/token-types)
 
+   #### You can find additional information about tokens [here](https://api.slack.com/authentication/token-types)
+
 2. Run the bot & Loki Grafana logging services with `docker compose up` while being in the base folder.
 
    _Logs are accessible to view with Grafana at localhost:3200 by default after all the services started_
