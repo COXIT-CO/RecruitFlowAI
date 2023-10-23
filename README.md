@@ -53,6 +53,8 @@ For more details checkout the [project Notion](https://cotton-radar-ab3.notion.s
    - `SLACK_ACCESS_TOKEN` - Bot User OAuth Token. Install App to Workspace and copy it from the `Install App->OAuth Tokens for Your Workspace` section
    - `OPENAI_API_KEY` - generate this key in your OpenAI account: https://platform.openai.com/account/api-keys.
 
+   #### You can find additional information about tokens [here](https://api.slack.com/authentication/token-types)
+
 2. Run the bot & Loki Grafana logging services with `docker compose up` while being in the base folder.
 
    _Logs are accessible to view with Grafana at localhost:3200 by default after all the services started_
