@@ -1,4 +1,9 @@
 version: '3'
+
+networks:
+  loki:
+
+
 services:
   recruit_flow_bot:
     build:
@@ -11,7 +16,40 @@ services:
     restart: always
     env_file:
       - .env
-    logging:
-      driver: loki
-      options:
-        loki-url: ${LOKI_URL}
+    labels:
+      logging: "promtail"
+
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - 3200:3000
+    restart: unless-stopped
+    volumes:
+      - ./logging_configs/grafana-datasources.yml:/etc/grafana/provisioning/datasources/datasources.yaml
+    environment:
+      - GF_AUTH_ANONYMOUS_ENABLED=true
+      - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
+      - GF_AUTH_DISABLE_LOGIN_FORM=true
+    networks:
+      - loki
+
+  loki:
+    image: grafana/loki:latest
+    ports:
+      - 3300:3100
+    restart: unless-stopped
+    command: -config.file=/etc/loki/local-config.yaml
+    networks:
+      - loki
+
+  promtail:
+    image: grafana/promtail:latest
+    restart: unless-stopped
+    volumes:
+      - ./logging_configs/promtail.yaml:/etc/promtail/docker-config.yaml
+      - /var/run/docker.sock:/var/run/docker.sock
+    command: -config.file=/etc/promtail/docker-config.yaml
+    networks:
+      - loki
+    depends_on:
+      - loki
