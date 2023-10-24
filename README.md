@@ -45,10 +45,11 @@ For more details checkout the [project Notion](https://cotton-radar-ab3.notion.s
 
 1. Create in base folder `.env` file and specify:
 
-   - `SLACK_SIGNING_SECRET` - Signing Secret from the App credentials section
-   - `SLACK_CONFIG_DATA_DIR` - the path to the directory that contains `manifest.json` and `chatcraft_templates.json` (optional for docker run)
-   - `SLACK_BOT_APP_ID` - App ID from the App credentials section
-   - `SLACK_APP_CONFIG_TOKEN` - Access Token from App Configuration Tokens(**Your Apps** section). Needed to run the bot using ngrok. It expires every 12 hours, do not forget to update ([reference](https://api.slack.com/authentication/config-tokens)). You will need to have ngrok configured - check `.ngrok2/ngrok.ym` in you home dir, it should contain `authtoken` and `version` set to `2`. Read more details on https://dashboard.ngrok.com/get-started/setup.
+   - `SLACK_ACCESS_TOKEN` - Bot User OAuth Token.
+   - `SLACK_SIGNING_SECRET` - Signing Secret from the App credentials section.
+   - `SLACK_CONFIG_DATA_DIR` - the path to the directory that contains `manifest.json` and `chatcraft_templates.json` (optional for docker run).
+   - `SLACK_BOT_APP_ID` - App ID from the App credentials section.
+   - `SLACK_APP_CONFIG_TOKEN` - Access Token from App Configuration Tokens(**Your Apps** section). Used to create and configure Slack apps using App Manifest APIs: https://api.slack.com/authentication/config-tokens
    - `SLACK_REFRESH_TOKEN` - refresh token for app config token rotation if the token was refreshed at least once with request/api. Obtain it from **Your Apps**, same as the app config token: https://api.slack.com/apps.
    - `SLACK_ACCESS_TOKEN` - Bot User OAuth Token. Install App to Workspace and copy it from the `Install App->OAuth Tokens for Your Workspace` section
    - `OPENAI_API_KEY` - generate this key in your OpenAI account: https://platform.openai.com/account/api-keys.
