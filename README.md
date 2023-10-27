@@ -45,7 +45,6 @@ For more details checkout the [project Notion](https://cotton-radar-ab3.notion.s
 
 1. Create in base folder `.env` file and specify:
 
-   - `SLACK_ACCESS_TOKEN` - Bot User OAuth Token.
    - `SLACK_SIGNING_SECRET` - Signing Secret from the App credentials section.
    - `SLACK_CONFIG_DATA_DIR` - the path to the directory that contains `manifest.json` and `chatcraft_templates.json` (optional for docker run).
    - `SLACK_BOT_APP_ID` - App ID from the App credentials section.
