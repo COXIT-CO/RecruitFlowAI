@@ -14,13 +14,15 @@ services:
     container_name: recruit_flow_bot_cont
     ports:
       - 3100:3000
-    # restart: always
+    restart: always
     env_file:
       - .env
     labels:
       logging: "promtail"
     networks:
       - tunnel
+    depends_on:
+      - cloudflare_tunnel
 
   cloudflare_tunnel:
     image: cloudflare/cloudflared
