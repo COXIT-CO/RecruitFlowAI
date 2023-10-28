@@ -1,8 +1,8 @@
 """Asyncronious events listener"""
 import logging
 from fastapi import FastAPI, Request
-from slack_bot.bot import app_handler
 from slack_bot.bot_setup import update_bot_manifest
+from slack_bot.bot import app_handler
 
 logging.basicConfig(
     level=logging.DEBUG,
