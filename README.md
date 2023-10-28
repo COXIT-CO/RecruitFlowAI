@@ -49,7 +49,6 @@ For more details checkout the [project Notion](https://cotton-radar-ab3.notion.s
    - `SLACK_CONFIG_DATA_DIR` - the path to the directory that contains `manifest.json` and `chatcraft_templates.json` (optional for docker run).
    - `SLACK_BOT_APP_ID` - App ID from the App credentials section.
    - `SLACK_APP_CONFIG_TOKEN` - Access Token from App Configuration Tokens(**Your Apps** section). Used to create and configure Slack apps using App Manifest APIs: https://api.slack.com/authentication/config-tokens
-   - `SLACK_REFRESH_TOKEN` - refresh token for app config token rotation if the token was refreshed at least once with request/api. Obtain it from **Your Apps**, same as the app config token: https://api.slack.com/apps.
    - `SLACK_ACCESS_TOKEN` - Bot User OAuth Token. Install App to Workspace and copy it from the `Install App->OAuth Tokens for Your Workspace` section
    - `CLOUDFLARE_TUNNEL_TOKEN` - the token you've obtained once you've [created](https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/get-started/create-remote-tunnel/) a cloudflare tunnel. Note: the local service address you expose to the tunnel should match the container name you use for the bot (_recruit_flow_bot_cont_ by default), with the port# you expose within the container (_3000_ by default). And the protocol being http unless you're willing to configure https by yourself. So by default you'd better to set it http://recruit_flow_bot_cont:3000
    - `CLOUDFLARE_TUNNEL_URL` - the public URL of the cloudflare tunnel.

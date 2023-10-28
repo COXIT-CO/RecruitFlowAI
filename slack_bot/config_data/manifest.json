@@ -1,77 +1,73 @@
 {
-    "display_information": {
-        "name": "RecruitFlowAI",
-        "description": "RecruitFlowAI is a Slack bot with OpenAI integration aimed to assist COXIT's recruiters during the entire recruitment pipeline.",
-        "background_color": "#000000"
+  "display_information": {
+    "name": "RecruitFlowAI",
+    "description": "RecruitFlowAI is a Slack bot with OpenAI integration aimed to assist COXIT's recruiters during the entire recruitment pipeline.",
+    "background_color": "#000000"
+  },
+  "features": {
+    "app_home": {
+      "home_tab_enabled": true,
+      "messages_tab_enabled": true,
+      "messages_tab_read_only_enabled": false
     },
-    "features": {
-        "app_home": {
-            "home_tab_enabled": true,
-            "messages_tab_enabled": true,
-            "messages_tab_read_only_enabled": false
-        },
-        "bot_user": {
-            "display_name": "RecruitFlowAI",
-            "always_online": true
-        },
-        "slash_commands": [
-            {
-                "command": "/create_social_media_post",
-                "url": "{$bot_base_url}/slack/events",
-                "description": "Create Social Media Post about New Job",
-                "should_escape": false
-            },
-            {
-                "command": "/match_resumes",
-                "url": "{$bot_base_url}/slack/events",
-                "description": "Resume Matching",
-                "should_escape": false
-            },
-            {
-                "command": "/scan_resume",
-                "url": "{$bot_base_url}/slack/events",
-                "description": "Resume Scan for Mistakes",
-                "should_escape": false
-            },
-            {
-                "command": "/generate_job_description",
-                "url": "{$bot_base_url}/slack/events",
-                "description": "Create Job Description",
-                "should_escape": false
-            },
-            {
-                "command": "/save_resume",
-                "url": "{$bot_base_url}/slack/events",
-                "description": "Save resume to internal S3 storage and return the link",
-                "should_escape": false
-            }
-        ]
+    "bot_user": {
+      "display_name": "RecruitFlowAI",
+      "always_online": true
     },
-    "oauth_config": {
-        "scopes": {
-            "bot": [
-                "chat:write",
-                "files:read",
-                "im:read",
-                "im:write",
-                "channels:history",
-                "im:history",
-                "commands",
-                "remote_files:share"
-            ]
-        }
-    },
-    "settings": {
-        "event_subscriptions": {
-            "request_url": "{$bot_base_url}/slack/events",
-            "bot_events": [
-                "app_home_opened",
-                "message.channels",
-                "message.im"
-            ]
-        },
-        "org_deploy_enabled": false,
-        "socket_mode_enabled": false,
-        "token_rotation_enabled": false
+    "slash_commands": [
+      {
+        "command": "/create_social_media_post",
+        "url": "{$bot_base_url}/slack/events",
+        "description": "Create Social Media Post about New Job",
+        "should_escape": false
+      },
+      {
+        "command": "/match_resumes",
+        "url": "{$bot_base_url}/slack/events",
+        "description": "Resume Matching",
+        "should_escape": false
+      },
+      {
+        "command": "/scan_resume",
+        "url": "{$bot_base_url}/slack/events",
+        "description": "Resume Scan for Mistakes",
+        "should_escape": false
+      },
+      {
+        "command": "/generate_job_description",
+        "url": "{$bot_base_url}/slack/events",
+        "description": "Create Job Description",
+        "should_escape": false
+      },
+      {
+        "command": "/save_resume",
+        "url": "{$bot_base_url}/slack/events",
+        "description": "Save resume to internal S3 storage and return the link",
+        "should_escape": false
+      }
+    ]
+  },
+  "oauth_config": {
+    "scopes": {
+      "bot": [
+        "chat:write",
+        "files:read",
+        "im:read",
+        "im:write",
+        "channels:history",
+        "im:history",
+        "commands",
+        "remote_files:share"
+      ]
     }
+  },
+  "settings": {
+    "event_subscriptions": {
+      "request_url": "{$bot_base_url}/slack/events",
+      "bot_events": ["app_home_opened", "message.channels", "message.im"]
+    },
+    "org_deploy_enabled": false,
+    "socket_mode_enabled": false,
+    "token_rotation_enabled": true
+  }
 }
