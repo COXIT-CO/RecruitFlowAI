@@ -8,7 +8,7 @@ from slack_bolt.adapter.fastapi.async_handler import AsyncSlackRequestHandler
 from slack_bot.commands import CmdReplyModel
 from slack_bot.settings import env_settings
 from slack_bot.bot_home_view import get_home_blocks
-from slack_bot.messages import SlackMessageEventModel, SlackFileSharedEventModel
+from slack_bot.messages import SlackMessageEventModel
 from slack_bot.utils import convert_slack_msgs_to_openai_msgs, AI_PROCESSING_NOTIFICATION_MSG
 
 from recruit_flow_ai import RecruitFlowAI, ResumeHandler
@@ -77,35 +77,31 @@ async def update_home_tab(client, event):
 
 # https://api.slack.com/events/message
 @app.event(
-    event={"type": "message", "subtype": re.compile("(me_message)|(file_share)")}
+    event={"type": "message", "subtype": "file_share"}
 )
 async def reply_in_thread_on_file_share(client, event):
-    message_event = SlackFileSharedEventModel(**event)
-    if message_event.is_from_client():
-        for file in message_event.files:
-            response_text = None
-            if "filetype" in file and file["filetype"] != "pdf":
-                logging.debug("File type is not supported!")
-                response_text = "Invalid file type. Only PDF type is currenty supported."
-            elif "url_private_download" in file:
-                url = file["url_private_download"]
-                logging.debug("Slack file url: {url}")
-                s3_url = resume_handler.save_resume(url, env_settings.access_token.get_secret_value())
-                response_text = s3_url
-            else:
-                logging.error("Not valid file")
-                return
+    for file in event["files"]:
+        response_text = None
+        if "filetype" in file and file["filetype"] != "pdf":
+            logging.debug("File type is not supported!")
+            response_text = "Invalid file type. Only PDF type is currenty supported."
+        elif "url_private_download" in file:
+            url = file["url_private_download"]
+            logging.debug("Slack file url: {url}")
+            s3_url = resume_handler.save_resume(url, env_settings.access_token.get_secret_value())
+            response_text = s3_url
+        else:
+            logging.error("Not valid file")
+            return
 
-            if response_text:
-                thread_ts = message_event.thread_ts if message_event.thread_ts else message_event.ts
-                post_msg_resp = await client.chat_postMessage(channel=message_event.channel,
-                    text=response_text,
-                    thread_ts=thread_ts
-                )
-                if post_msg_resp.status_code != 200:
-                    logging.error("chat_postMessage request failed, status code=%s", post_msg_resp.status_code)
-    else:
-        logging.debug("Not a user message. Should be Bot message.")
+        if response_text:
+            post_msg_resp = await client.chat_postMessage(
+                channel=event["channel"],
+                text=response_text,
+                thread_ts=event["ts"]
+            )
+            if post_msg_resp.status_code != 200:
+                logging.error("chat_postMessage request failed, status code=%s", post_msg_resp.status_code)
 
 # https://api.slack.com/events/message
 @app.event({"type": "message", "subtype": None})
