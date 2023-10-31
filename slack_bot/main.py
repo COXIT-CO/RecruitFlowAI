@@ -2,18 +2,18 @@
 import logging
 from fastapi import FastAPI, Request
 from slack_bot.bot import app_handler
-from slack_bot.run_ngrok import setup_ngrok
+from slack_bot.bot_setup import update_bot_manifest
 
 logging.basicConfig(
     level=logging.DEBUG,
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
-    datefmt="%m/%d/%Y %I:%M:%S %p"
+    datefmt="%m/%d/%Y %I:%M:%S %p",
 )
 
 logging.getLogger("httpx").setLevel(logging.WARNING)
 logging.getLogger("httpcore").setLevel(logging.WARNING)
 
-setup_ngrok()
+update_bot_manifest()
 fast_app = FastAPI()
 
 

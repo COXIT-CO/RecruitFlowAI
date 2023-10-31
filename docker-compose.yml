@@ -2,6 +2,7 @@ version: '3'
 
 networks:
   loki:
+  tunnel:
 
 
 services:
@@ -18,6 +19,21 @@ services:
       - .env
     labels:
       logging: "promtail"
+    networks:
+      - tunnel
+    depends_on:
+      - cloudflare_tunnel
+
+  cloudflare_tunnel:
+    image: cloudflare/cloudflared
+    restart: unless-stopped
+    command: tunnel run
+    environment:
+      - TUNNEL_TOKEN=${CLOUDFLARE_TUNNEL_TOKEN}
+    labels:
+      logging: "promtail"
+    networks:
+      - tunnel
 
   grafana:
     image: grafana/grafana:latest
