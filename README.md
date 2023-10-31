@@ -52,6 +52,12 @@ For more details checkout the [project Notion](https://cotton-radar-ab3.notion.s
    - `SLACK_REFRESH_TOKEN` - refresh token for app config token rotation if the token was refreshed at least once with request/api. Obtain it from **Your Apps**, same as the app config token: https://api.slack.com/apps.
    - `SLACK_ACCESS_TOKEN` - Bot User OAuth Token. Install App to Workspace and copy it from the `Install App->OAuth Tokens for Your Workspace` section
    - `OPENAI_API_KEY` - generate this key in your OpenAI account: https://platform.openai.com/account/api-keys.
+   - `MINIO_ENDPOINT` - specifies the endpoint or URL where your Minio server is hosted.
+   - `MINIO_ACCESS_KEY` - represents the access key used for authentication when accessing your Minio server.
+   - `MINIO_SECRET_KEY` - secret key paired with the access key for authentication purposes.
+   - `MINIO_BUCKET` - A bucket in Minio is a logical container for storing objects (files). This key specifies the name of the bucket where you want to store or retrieve data.
+
+   #### You can find additional information about tokens using the following links: [Slack API Access tokens](https://api.slack.com/authentication/token-types) and [Minio object storage setup](https://min.io/docs/minio/container/index.html)
 
 2. Run the bot & Loki Grafana logging services with `docker compose up` while being in the base folder.
 
