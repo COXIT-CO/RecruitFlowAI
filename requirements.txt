@@ -6,6 +6,7 @@ h11==0.14.0
 httptools==0.6.0
 idna==3.4
 openai==0.27.9
+requests==2.31.0
 # slack bot
 fastapi==0.103.0
 aiohttp==3.8.5
