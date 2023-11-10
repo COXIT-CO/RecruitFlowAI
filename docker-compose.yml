@@ -15,8 +15,8 @@ services:
     ports:
       - 3100:3000
     restart: always
-    env_file:
-      - .env
+    volumes:
+      - .env:/recruit_flow_ai/.env
     labels:
       logging: "promtail"
     networks:
