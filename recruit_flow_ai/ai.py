@@ -23,13 +23,14 @@ Example:
 import openai
 
 import logging
-import re   # used for api key format validation
+import re  # used for api key format validation
 
 from recruit_flow_ai.parse_config import parse_config, ConfigModel
 from recruit_flow_ai.settings import env_settings
 
 PROMPTS_CONFIG_PATH = "recruit_flow_ai/prompts_config.json"
 ISSUES_REPORT_MSG = "Report this to #recruitflowai_issues channel."
+
 
 class RecruitFlowAI:
     """
@@ -47,17 +48,18 @@ class RecruitFlowAI:
         is_valid_api_key_format(api_key: str): Validates the format of an OpenAI API key.
 
     """
+
     model = "gpt-4-1106-preview"
     api_key = ""
     system_prompt = "I am helpful recruitment assistant."
     temperature = 0
 
-    def __init__(self, api_key = ""):
+    def __init__(self, api_key=""):
         """
         Initializes the RecruitFlowAI object with the provided API key.
 
         Args:
-            api_key (str): The API key for accessing the OpenAI API. If not provided, 
+            api_key (str): The API key for accessing the OpenAI API. If not provided,
             it will be read from the .env file.
 
         Raises:
@@ -77,7 +79,9 @@ class RecruitFlowAI:
         config: ConfigModel = parse_config(PROMPTS_CONFIG_PATH)
         if config.temperature:
             if self.is_valid_temperature(temperature=config.temperature):
-                logging.error("Temperature is not valid in config. Default will be used.")
+                logging.error(
+                    "Temperature is not valid in config. Default will be used."
+                )
             else:
                 self.temperature = config.temperature
 
@@ -88,7 +92,7 @@ class RecruitFlowAI:
         if config.prompts["ai_assistant"]:
             self.system_prompt = config.prompts["ai_assistant"].system
 
-    def generate_response(self, openai_msgs: [] ):
+    def generate_response(self, openai_msgs: []):
         """
         Generates a response based on the given messages.
 
@@ -117,38 +121,38 @@ class RecruitFlowAI:
                 model=self.model,
                 messages=openai_msgs,
                 temperature=self.temperature,
-                #TODO invetigate if its possible to stream slack message with Slack
-                stream=False
+                # TODO invetigate if its possible to stream slack message with Slack
+                stream=False,
             )
 
             response_msg = response.choices[0].message.content
-           
+
         except openai.APITimeoutError as e:
-            #Handle timeout error, e.g. retry or log
+            # Handle timeout error, e.g. retry or log
             error_msg = "OpenAI API request timed out"
             logging.error("%s: ", error_msg, exc_info=e)
         except openai.APIConnectionError as e:
-            #Handle connection error, e.g. check network or log
+            # Handle connection error, e.g. check network or log
             error_msg = "OpenAI API request failed to connect"
             logging.error("%s: ", error_msg, exc_info=e)
         except openai.BadRequestError as e:
-            #Handle invalid request error, e.g. validate parameters or log
+            # Handle invalid request error, e.g. validate parameters or log
             error_msg = "OpenAI API request was invalid"
             logging.error("%s: ", error_msg, exc_info=e)
         except openai.AuthenticationError as e:
-            #Handle authentication error, e.g. check credentials or log
+            # Handle authentication error, e.g. check credentials or log
             error_msg = "OpenAI API request was not authorized"
             logging.error("%s: ", error_msg, exc_info=e)
         except openai.PermissionDeniedError as e:
-            #Handle permission error, e.g. check scope or log
+            # Handle permission error, e.g. check scope or log
             error_msg = "OpenAI API request was not permitted"
             logging.error("%s: ", error_msg, exc_info=e)
         except openai.RateLimitError as e:
-            #Handle rate limit error, e.g. wait or log
+            # Handle rate limit error, e.g. wait or log
             error_msg = "OpenAI API request exceeded rate limit"
             logging.error("%s: ", error_msg, exc_info=e)
         except openai.APIError as e:
-            #Handle API error, e.g. retry or log
+            # Handle API error, e.g. retry or log
             error_msg = "OpenAI API returned an API Error"
             logging.error("%s: ", error_msg, exc_info=e)
 
@@ -185,4 +189,3 @@ class RecruitFlowAI:
             bool: True if the temperature is valid, False otherwise.
         """
         return bool(0 <= temperature <= 1)
-
