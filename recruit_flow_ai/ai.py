@@ -47,7 +47,7 @@ class RecruitFlowAI:
         is_valid_api_key_format(api_key: str): Validates the format of an OpenAI API key.
 
     """
-    model = "gpt-3.5-turbo"
+    model = "gpt-4-1106-preview"
     api_key = ""
     system_prompt = "I am helpful recruitment assistant."
     temperature = 0
