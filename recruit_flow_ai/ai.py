@@ -99,13 +99,13 @@ class RecruitFlowAI:
             str: The generated response.
 
         Raises:
-            openai.error.Timeout: If the OpenAI API request times out.
-            openai.error.APIError: If the OpenAI API returns an error.
-            openai.error.APIConnectionError: If the OpenAI API request fails to connect.
-            openai.error.InvalidRequestError: If the OpenAI API request is invalid.
-            openai.error.AuthenticationError: If the OpenAI API request is not authorized.
-            openai.error.PermissionError: If the OpenAI API request is not permitted.
-            openai.error.RateLimitError: If the OpenAI API request exceeds the rate limit.
+            openai.APITimeoutError: If the OpenAI API request times out.
+            openai.APIConnectionError: If the OpenAI API request fails to connect.
+            openai.BadRequestError: If the OpenAI API request is invalid.
+            openai.AuthenticationError: If the OpenAI API request is not authorized.
+            openai.PermissionDeniedError: If the OpenAI API request is not permitted.
+            openai.RateLimitError: If the OpenAI API request exceeds the rate limit.
+            openai.APIError: If the OpenAI API returns an error (general).
         """
         if self.system_prompt:
             openai_msgs.insert(0, {"role": "system", "content": self.system_prompt})
@@ -113,7 +113,7 @@ class RecruitFlowAI:
         error_msg = str()
         response_msg = str()
         try:
-            response = openai.ChatCompletion.create(
+            response = openai.chat.completions.create(
                 model=self.model,
                 messages=openai_msgs,
                 temperature=self.temperature,
@@ -121,37 +121,35 @@ class RecruitFlowAI:
                 stream=False
             )
 
-            if "choices" in response:
-                response_msg = response["choices"][0]["message"]["content"]
-            else:
-                logging.error("Response is not valid. Correct error handling should be added here")
-        except openai.error.Timeout as e:
+            response_msg = response.choices[0].message.content
+           
+        except openai.APITimeoutError as e:
             #Handle timeout error, e.g. retry or log
             error_msg = "OpenAI API request timed out"
             logging.error("%s: ", error_msg, exc_info=e)
-        except openai.error.APIError as e:
-            #Handle API error, e.g. retry or log
-            error_msg = "OpenAI API returned an API Error"
-            logging.error("%s: ", error_msg, exc_info=e)
-        except openai.error.APIConnectionError as e:
+        except openai.APIConnectionError as e:
             #Handle connection error, e.g. check network or log
             error_msg = "OpenAI API request failed to connect"
             logging.error("%s: ", error_msg, exc_info=e)
-        except openai.error.InvalidRequestError as e:
+        except openai.BadRequestError as e:
             #Handle invalid request error, e.g. validate parameters or log
             error_msg = "OpenAI API request was invalid"
             logging.error("%s: ", error_msg, exc_info=e)
-        except openai.error.AuthenticationError as e:
+        except openai.AuthenticationError as e:
             #Handle authentication error, e.g. check credentials or log
             error_msg = "OpenAI API request was not authorized"
             logging.error("%s: ", error_msg, exc_info=e)
-        except openai.error.PermissionError as e:
+        except openai.PermissionDeniedError as e:
             #Handle permission error, e.g. check scope or log
             error_msg = "OpenAI API request was not permitted"
             logging.error("%s: ", error_msg, exc_info=e)
-        except openai.error.RateLimitError as e:
+        except openai.RateLimitError as e:
             #Handle rate limit error, e.g. wait or log
             error_msg = "OpenAI API request exceeded rate limit"
+            logging.error("%s: ", error_msg, exc_info=e)
+        except openai.APIError as e:
+            #Handle API error, e.g. retry or log
+            error_msg = "OpenAI API returned an API Error"
             logging.error("%s: ", error_msg, exc_info=e)
 
         if response_msg == "":
