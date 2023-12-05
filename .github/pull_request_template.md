@@ -14,7 +14,7 @@ If you made UI changes, what are the before an afters?
 
 ### 🏎 Quality check
 
-- [ ]  Set base branch to main.
+- [ ]  Set base branch to dev.
 - [ ]  Pull request is prepared: Added to sprint, added yourself as assignee, reviewers are added.
 - [ ]  PR is not very big (about 200 lines of change ideally).
 - [ ]  I have added comments to my code, particularly in hard-to-understand areas.
